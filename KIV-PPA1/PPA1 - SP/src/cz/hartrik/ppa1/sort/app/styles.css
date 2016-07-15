@@ -1,0 +1,45 @@
+
+/* Hlavní panel, obsahuje grafy a toolbar */
+
+.main-box {
+    -fx-padding: 20px 20px 20px 20px;
+    -fx-spacing: 20px;
+
+    -fx-alignment: center;
+}
+
+/* TOOLBAR */
+
+.toolbar {
+    -fx-alignment: center;
+}
+
+.toolbar > .button, .toolbar > .combo-box {
+    /* tlačítka jsou jinak trochu menší než combobox...  */
+    -fx-pref-height: 25;
+}
+
+/* GRAFY */
+
+.chart-column {
+    -fx-arc-height: 10px;
+    -fx-arc-width: 10px;
+
+    -fx-fill: linear-gradient(
+            from 0px 0px to 0px 200px,
+            rgba(150, 0, 0, .8), rgba(90, 90, 90, .9));
+}
+
+.chart-line {
+    -fx-stroke: gray;
+    -fx-stroke-width: 1px;
+    -fx-stroke-dash-array: 3 3;
+}
+
+.chart-panel {
+    -fx-background-color: #EEEEEE;
+}
+
+.chart-panel-wrapper {
+    -fx-alignment: center;
+}
