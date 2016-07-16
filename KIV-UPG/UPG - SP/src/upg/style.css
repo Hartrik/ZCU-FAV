@@ -1,0 +1,4 @@
+
+#rendererGrayscaleLabel:hover, #rendererDesertLabel:hover {
+    -fx-underline: true;
+}
