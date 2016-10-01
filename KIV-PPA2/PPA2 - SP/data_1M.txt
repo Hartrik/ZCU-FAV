@@ -1,0 +1,13 @@
+MBFS
+4
+A
+B
+C
+D
+5
+A-B
+C-A
+D>A
+B-C
+D>C
+B
