@@ -5,4 +5,4 @@
 > nachází dělostřelec a cíl. Hráčovým úkolem je zasáhnout cíl. Hráč bude mít k dispozici vizualizace (2D grafy) které mu
 > pomohou s výběrem parametrů každého výstřelu (azimut, elevace, úsťová rychlost střely).
 
-Další podrobnosti v [uživatelské dokumentaci](UPG - SP/Dokumentace.pdf).
+Další podrobnosti v [uživatelské dokumentaci](Dokumentace.pdf).
