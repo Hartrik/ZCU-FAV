@@ -1,0 +1,10 @@
+Zdravím,
+
+- v pseudokódu by se hodilo použít symbol pro komentář //
+- testovaná sestava se píše na začátek kapitoly experimentů
+-  Tabulka 4.1 > jednotky se píšou do hranatých závorek jako popisek k sloupcům.
++ Velmi solidní, moc se mi práce líbila. Navíc jako jeden z mála jsi poskytnul i zdrojové kódy, ba co víc i script jak to přeložit :D
+
+verdikt => 14 bodů
+
+O.K.

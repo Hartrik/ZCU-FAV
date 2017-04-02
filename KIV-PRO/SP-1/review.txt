@@ -1,0 +1,17 @@
+Zdravím,
+
+- Odkaz na cokoli (obrázek) se snažíme v textu dát co nejblíže. Klidně referencovat obrázek 2x, něco jako "na Obr. XY můžeme vidět konkrétní připad našeho problému ..." a potom dál v textu třeba znova odkazovat s již detailnějšími informacemi
+- Lemma 1. seznam.: 2x deterministický ale jinak rozepsaná stejná složitost.
+- Analýza problému: "... s rohy alespoň na třech hranách" e1,... e4.", asi chybí "z množiny e1, ... e4"
+- odkazy v textu by měli "sedět" s těmi u obrázků, tabulek atd. tedy s velkým písmenem (lze však skloňovat, tedy "vidíme na Obr. 1 / na Obrázku 1").
+- Generování náhodných bodů uvnitř P: "zvolíme náhodnou výšku h mezi TĚMITO body."
+- Obrázek 2 nemá bod vt ano vb
+- úsečka, která se "vejde" je spojnicí těchto bodů nebo na tu výšku h promítneme ty body vt a vb ?
+- Obrázek 3 je v TITULKU označeno Re ale na obrázku je pouze R
+- Aproximace Ropt, poslední odstavec mi moc nedává smysl.
+- odstavce mají mít nějaké odsazení
+- téma moc pěkné
+
+verdikt => 11 bodů
+
+O.K.
