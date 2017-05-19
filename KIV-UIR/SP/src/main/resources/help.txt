@@ -1,0 +1,14 @@
+--------------------------------------------------------------------------------
+
+Pro natrénování modelu:
+    trénovací_množina, testovací_množina, parametrizační_algoritmus,
+    klasifikační_algoritmus, název_modelu
+
+    Dostupné parametrizační algoritmy: bin, bin-r, tf, tf-r, tf-idf, tf-idf-r
+    Dostupné klasifikátory: 1NN, naive-bayes
+    (na velikosti písmen nezáleží)
+
+Pro zobrazení GUI:
+    název_modelu
+
+--------------------------------------------------------------------------------
