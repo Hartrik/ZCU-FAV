@@ -1,0 +1,1 @@
+# Programátorské strategie

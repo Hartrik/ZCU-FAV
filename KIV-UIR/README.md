@@ -1,0 +1,1 @@
+# Umělá inteligence a rozpoznávání

@@ -1,1 +1,3 @@
-[https://github.com/Hartrik/KIV-PC](https://github.com/Hartrik/KIV-PC)
+# Programování v jazyce C
+
+https://github.com/Hartrik/KIV-PC

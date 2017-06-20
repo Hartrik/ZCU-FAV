@@ -1,1 +1,3 @@
-[https://github.com/Hartrik/KIV-TI](https://github.com/Hartrik/KIV-TI)
+# Teoretická informatika
+
+https://github.com/Hartrik/KIV-TI

@@ -1,1 +1,3 @@
-[https://github.com/Hartrik/KIV-PT](https://github.com/Hartrik/KIV-PT)
+# Programovací techniky
+
+https://github.com/Hartrik/KIV-PT
