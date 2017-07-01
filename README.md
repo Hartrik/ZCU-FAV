@@ -21,3 +21,4 @@ Některé projekty měly původně svůj vlastní repozitář a později sem byl
 | [KIV-TI](KIV-TI) | ZS | Semestrální práce – program pro komprimaci souborů Huffmanovým kódováním |
 | [KIV-WEB](KIV-WEB) | ZS | Semestrální práce – malý redakční systém |
 | [KIV-UIR](KIV-UIR) | LS | Cvičení <br> Semestrální práce – klasifikace dokumentů |
+| [KIV-ZSWI](KIV-ZSWI) | LS | Semestrální práce – nástroj pro převod dokumentů z formátu Markdown do formátu OpenDocument (*.odt*) |
