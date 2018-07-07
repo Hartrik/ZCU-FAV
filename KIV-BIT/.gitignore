@@ -1,0 +1,22 @@
+
+# Gradle
+.gradle/
+build/
+
+# IDEA
+.idea/
+*.iml
+out/
+
+# Examples
+example-*-decrypted.txt
+example-*-encrypted.txt
+
+# LaTEX
+/doc/*.aux
+/doc/*.log
+/doc/*.out
+/doc/*.toc
+/doc/*.bbl
+/doc/*.blg
+/doc/*.synctex.gz
