@@ -1,0 +1,101 @@
+{% extends "layout.twig" %}
+
+{% set content_title = 'Úprava recenze' %}
+
+{% block content %}
+  <form class="form-horizontal" action="index.php?page=edit-review-service" method="POST">
+  <fieldset>
+
+  <!-- ID článku -->
+  <input id="publication" name="publication" type="hidden" value="{{ publication.id }}">
+
+  <!-- Název článku -->
+  <div class="form-group">
+    <label class="col-md-3 control-label">Název</label>
+    <div class="row lead" style="margin-left: 0px">  <!-- margin kvůli zarovnání při zmenšení okna -->
+      <div class="col-md-6">
+        <a href="index.php?page=publication&id={{ publication.id }}" class="form-control-static">{{ publication.title }}</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function initStarRating(controlID, formInputID) {
+      $(controlID).starrr({
+        max: 5,
+        rating: ($(formInputID)).val(),
+        change: function(e, value) {
+            ($(formInputID)).val(!value ? 0 : value).trigger('input');
+        }
+      });
+    }
+  </script>
+
+  <!-- Originalita -->
+  <div class="form-group">
+    <label class="col-md-3 control-label">Originalita</label>
+    <div class="col-md-6">
+      <div class="row lead">
+        <div class='starrr starrr-large' id='star1'></div>
+        <input type='hidden' id='originality' name='originality' class="form-control input-md" value='{{ review.originality }}'/>
+      </div>
+    </div>
+  </div>
+  <script>
+    initStarRating('#star1', '#originality');
+  </script>
+
+  <div class="form-group">
+    <label class="col-md-3 control-label">Technická kvalita</label>
+    <div class="col-md-6">
+      <div class="row lead">
+        <div class='starrr starrr-large' id='star2'></div>
+        <input type='hidden' id='t-quality' name='t-quality' class="form-control input-md" value='{{ review.techQuality }}'/>
+      </div>
+    </div>
+  </div>
+  <script>
+    initStarRating('#star2', '#t-quality');
+  </script>
+
+  <div class="form-group">
+    <label class="col-md-3 control-label">Jazyková kvalita</label>
+    <div class="col-md-6">
+      <div class="row lead">
+        <div class='starrr starrr-large' id='star3'></div>
+        <input type='hidden' id='l-quality' name='l-quality' class="form-control input-md" value='{{ review.langQuality }}'/>
+      </div>
+    </div>
+  </div>
+  <script>
+    initStarRating('#star3', '#l-quality');
+  </script>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-3 control-label" for="message">Komentář</label>
+    <div class="col-md-7">
+      <textarea id="message" name="message"
+             placeholder="Napište komentář" class="form-control input-md"
+             maxlength="512" rows="8">{{ review.message }}</textarea>
+      <span id="message-count" class="char-count-label"></span>
+    </div>
+  </div>
+  <script>
+    // po prvním napsaném znaku zobrazí popisek s počtem zbývajích znaků
+    $("#message").keyup(function(){
+      $("#message-count").text("Zbývajících znaků: " + (512 - $(this).val().length));
+    });
+  </script>
+
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-3 control-label" for="apply"></label>
+    <div class="col-md-4">
+      <button id="apply" class="btn btn-primary">Uložit</button>
+    </div>
+  </div>
+
+  </fieldset>
+  </form>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "layout.twig" %}
+
+{% set content_title = 'Správa publikací' %}
+{% set enable_delete_dialog = true %}
+
+{% block content %}
+
+  {% if editor_present %}
+    {% if publications %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-condensed table-striped table-hover">
+        <tr><th>#</th><th>Název</th><th>Stav</th><th>Akce</th></tr>
+        {% for p in publications %}
+        <tr>
+          <td class="col-content">
+            {{ p.id }}
+          </td>
+          <td class="col-content">
+            <a href="index.php?page=publication&id={{ p.id }}">{{ p.title }}</a>
+          </td>
+          <td class="col-content">
+            {% if p.message %}
+              <a href="#" data-toggle="tooltip" title="{{ p.message }}">{{ p.state }}</a>
+            {% else %}
+              {{ p.state }}
+            {% endif %}
+          </td>
+          <td class="col-action">
+            <a href="index.php?page=edit-publication&id={{ p.id }}"
+               class="btn btn-default btn-xs">Upravit</a>
+            <a href="#" data-href="index.php?page=remove-publication-service&id={{ p.id }}"
+               class="btn btn-danger btn-xs"
+               data-toggle="modal" data-target="#confirm-delete">Smazat</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% endif %}
+
+  <a href="index.php?page=edit-publication" class="btn btn-info" role="button">Přidat publikaci</a>
+  {% endif %}
+
+  {% if reviewer_present %}
+    {% if publications %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-condensed table-striped table-hover">
+        <tr><th>#</th><th>Název</th><th>Akce</th></tr>
+        {% for p in publications %}
+        <tr>
+          <td class="col-content">
+            {{ p.id }}
+          </td>
+          <td class="col-content">
+            <a href="index.php?page=publication&id={{ p.id }}">{{ p.title }}</a>
+          </td>
+          <td class="col-action">
+            <a href="index.php?page=edit-review&id={{ p.id }}"
+               class="btn btn-default btn-xs">Upravit recenzi</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% else %}
+      <p>Žádné publikace k recenzi.</p>
+    {% endif %}
+  {% endif %}
+
+  {% if admin_present %}
+  <div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover">
+      <tr><th>#</th><th>Název</th><th>Autoři</th><th>Stav</th><th>Akce</th></tr>
+      {% for p in publications %}
+      <tr>
+        <td class="col-content">
+          {{ p.id }}
+        </td>
+        <td class="col-content">
+          <a href="index.php?page=publication&id={{ p.id }}">{{ p.title }}</a>
+        </td>
+        <td class="col-content">
+          {% for u in p.loadAuthors() %}
+            {{ u.name }}<br>
+          {% endfor %}
+        </td>
+        <td class="col-content">
+          {% if p.message %}
+            <a href="#" data-toggle="tooltip" title="{{ p.message }}">{{ p.state }}</a>
+          {% else %}
+            {{ p.state }}
+          {% endif %}
+        </td>
+        <td class="col-action">
+          <a href="index.php?page=reviews-administration&id={{ p.id }}"
+             class="btn btn-default btn-xs">Recenzní řízení</a>
+          <a href="#" data-href="index.php?page=remove-publication-service&id={{ p.id }}"
+             class="btn btn-danger btn-xs"
+             data-toggle="modal" data-target="#confirm-delete">Smazat</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% endif %}
+
+  <script>
+  $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+  });
+  </script>
+
+{% endblock %}

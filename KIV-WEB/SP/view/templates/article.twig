@@ -1,0 +1,35 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+
+  {% if admin_present %}
+    <form action="index.php?page=edit-article-service" method="POST" id="form">
+        <div id="editable" contenteditable="true">{{ content | raw }}</div>
+
+        <!-- nastavení editoru -->
+        <script src="lib/ckeditor/ckeditor.js"></script>
+        <script>
+          CKEDITOR.disableAutoInline = true;
+          CKEDITOR.inline('editable');
+        </script>
+
+        <input type='hidden' id='id' name='id' value="{{ id }}"/>
+        <input type='hidden' id='content' name='content'/>
+        <button type="submit" class="btn btn-primary">Uložit změny</button>
+    </form>
+
+    <!-- vložení dat do skryté položky při odeslání -->
+    <script>
+      var textarea = CKEDITOR.document.getById('content');
+      var form = CKEDITOR.document.getById('form');
+
+      form.$.onsubmit = function() {
+          textarea.setValue(CKEDITOR.instances.editable.getData());
+      }
+    </script>
+
+  {% else %}
+    {{ content | raw }}
+  {% endif %}
+
+{% endblock %}

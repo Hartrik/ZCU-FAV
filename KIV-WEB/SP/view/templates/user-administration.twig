@@ -1,0 +1,79 @@
+{% extends "layout.twig" %}
+
+{% set content_title = 'Správa uživatelů' %}
+{% set enable_delete_dialog = true %}
+
+{% block content %}
+
+  <h2>Redaktoři</h2>
+  <p>Redaktoři mohou vkládat příspěvky.
+    Přihlášený redaktor vidí svoje příspěvky a stav, ve kterém se nacházejí
+    (v recenzním řízení / přijat +hodnocení / odmítnut +hodnocení).
+    Příspěvky mohou přidávat, editovat a volitelně i mazat.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover">
+      <tr><th>#</th><th>Login</th><th>Jméno</th><th>E-mail</th><th>Akce</th></tr>
+      {% for editor in editors %}
+      <tr>
+        <td class="col-content">{{ editor.id }}</td>
+        <td class="col-content">{{ editor.login }}</td>
+        <td class="col-content">{{ editor.name }}</td>
+        <td class="col-content">{{ editor.email }}</td>
+        <td class="col-action">
+          <a href="index.php?page=set-user-role-service&id={{ editor.id }}&role=REVIEWER"
+             class="btn btn-default btn-xs" style="width: 70px">Recenzent</a>
+          <a href="#" class="btn btn-danger btn-xs"
+             data-href="index.php?page=remove-user-service&id={{ editor.id }}"
+             data-toggle="modal" data-target="#confirm-delete">Smazat</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <h2>Recenzenti</h2>
+  <p>Recenzenti hodnotí příspěvky. Přihlášený recenzent vidí příspěvky, které mu
+    byly přiděleny k recenzi, a může je hodnotit. Pokud příspěvek nebyl dosud
+    schválen, tak své hodnocení může změnit.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover">
+      <tr><th>#</th><th>Login</th><th>Jméno</th><th>E-mail</th><th>Akce</th></tr>
+      {% for reviewer in reviewers %}
+      <tr>
+        <td class="col-content">{{ reviewer.id }}</td>
+        <td class="col-content">{{ reviewer.login }}</td>
+        <td class="col-content">{{ reviewer.name }}</td>
+        <td class="col-content">{{ reviewer.email }}</td>
+        <td class="col-action">
+          <a href="index.php?page=set-user-role-service&id={{ reviewer.id }}&role=EDITOR"
+             class="btn btn-default btn-xs" style="width: 70px">Editor</a>
+          <a href="#" data-href="index.php?page=remove-user-service&id={{ reviewer.id }}"
+             class="btn btn-danger btn-xs"
+             data-toggle="modal" data-target="#confirm-delete">Smazat</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <h2>Administrátoři</h2>
+  <p>Administrátor spravuje uživatele (určuje jejich role a může uživatele smazat),
+    přiřazuje neschválené příspěvky recenzentům k ohodnocení
+    (každý příspěvek bude recenzován minimálně třemi recenzenty) a na základě
+    recenzí rozhoduje o přijetí nebo odmítnutí příspěvku. Přijaté příspěvky jsou
+    automaticky publikovány ve veřejné části webu.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover">
+      <tr><th>#</th><th>Login</th><th>Jméno</th><th>E-mail</th></tr>
+      {% for admin in admins %}
+      <tr>
+        <td>{{ admin.id }}</td>
+        <td>{{ admin.login }}</td>
+        <td>{{ admin.name }}</td>
+        <td>{{ admin.email }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+{% endblock %}

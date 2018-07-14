@@ -1,0 +1,59 @@
+{% extends "layout.twig" %}
+
+{% set content_title = 'Úprava publikace' %}
+
+{% block content %}
+  <form class="form-horizontal" action="index.php?page=edit-publication-service"
+        method="POST" enctype="multipart/form-data">
+  <fieldset>
+
+  <!-- ID článku -->
+  <input id="id" name="id" type="hidden" value="{{ publication.id }}">
+
+  <!-- Omezení velikosti nahrátého souboru na 4 MB -->
+  <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="name">Název</label>
+    <div class="col-md-4">
+    <input id="name" name="name" type="text" value="{{ publication.title }}" required=""
+           placeholder="Zadejte název publikace" class="form-control input-md">
+    </div>
+  </div>
+
+  <!-- Textarea -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="abstract">Abstrakt</label>
+    <div class="col-md-7">
+      <textarea class="form-control" id="abstract" name="abstract"
+                maxlength="512" rows="8">{{ publication.abstract }}</textarea>
+      <span id="abstract-count" class="char-count-label"></span>
+    </div>
+  </div>
+  <script>
+    // po prvním napsaném znaku zobrazí popisek s počtem zbývajích znaků
+    $("#abstract").keyup(function(){
+      $("#abstract-count").text("Zbývajících znaků: " + (512 - $(this).val().length));
+    });
+  </script>
+
+  <!-- File -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="file">PDF soubor</label>
+    <div class="col-md-4">
+      <input id="file" name="file" class="input-file" type="file">
+    </div>
+  </div>
+
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="apply"></label>
+    <div class="col-md-4">
+      <button id="apply" class="btn btn-primary">Uložit</button>
+    </div>
+  </div>
+
+  </fieldset>
+  </form>
+{% endblock %}

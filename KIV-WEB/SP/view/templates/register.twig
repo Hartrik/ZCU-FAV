@@ -1,0 +1,97 @@
+{% extends "layout.twig" %}
+
+{% set content_title = 'Registrace' %}
+
+{% block content %}
+  <p>Pro přidání příspěvků je nutné se zaregistrovat.</p>
+
+  <form class="form-horizontal" action="index.php?page=register-service" method="POST">
+  <fieldset>
+
+  <!-- Form Name -->
+  <legend>Zadejte údaje pro registraci</legend>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="login">Login</label>
+    <div class="col-md-4">
+      <input id="login" name="login" type="text" placeholder=""
+             class="form-control input-md" required="">
+      <span id="login-result" style='color: red'></span>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        var timer;
+        $("#login").keyup(function(e) {
+            // po stisknutí klávesy po nějaké době kontroluje dostupnost jména
+            clearTimeout(timer);
+            var login = $(this).val();
+            timer = setTimeout(function() {
+                checkLogin(login);
+            }, 500);
+        });
+
+        function checkLogin(login){
+            $.post('index.php?page=register-check-login', { 'login': login }, function(data) {
+                var text;
+                if (data === "free") {
+                    text = "";
+                } else if (data === "used") {
+                    text = "Tento login je již používán!";
+                } else {
+                    text = "Není možné ověřit dostupnost!";
+                }
+                $("#login-result").html(text);
+            });
+        }
+    });
+  </script>
+
+  <!-- Password input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="pass-1">Heslo</label>
+    <div class="col-md-4">
+      <input id="pass-1" name="pass-1" type="password" required="" placeholder=""
+             class="form-control input-md">
+    </div>
+  </div>
+
+  <!-- Password input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="pass-2">Heslo (znovu)</label>
+    <div class="col-md-4">
+      <input id="pass-2" name="pass-2" type="password" required="" placeholder=""
+             class="form-control input-md" >
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="name">Jméno a příjmení</label>
+    <div class="col-md-4">
+    <input id="name" name="name" type="text" required="" placeholder=""
+           class="form-control input-md">
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="email">E-mail</label>
+    <div class="col-md-4">
+      <input id="email" name="email" type="email" required="" placeholder=""
+             class="form-control input-md">
+    </div>
+  </div>
+
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="apply"></label>
+    <div class="col-md-4">
+      <button id="apply" class="btn btn-primary">Odeslat</button>
+    </div>
+  </div>
+
+  </fieldset>
+  </form>
+{% endblock %}

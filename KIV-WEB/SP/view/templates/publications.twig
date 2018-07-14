@@ -1,0 +1,22 @@
+{% extends "layout.twig" %}
+
+{% set content_title = 'Publikace' %}
+
+{% block content %}
+
+  <table class="table table-bordered table-condensed table-striped table-hover">
+    {% for p in publications %}
+    <tr>
+      <td>
+        <div class="publication-row">
+          <h3><a href="index.php?page=publication&id={{ p.id }}">{{ p.title }}</a></h3>
+          <p>{{ p.abstract }}</p>
+
+          <a href="index.php?page=publication&id={{ p.id }}">více...</a>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+
+{% endblock %}

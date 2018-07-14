@@ -1,0 +1,164 @@
+{% extends "layout.twig" %}
+
+{% set content_title = 'Recenzní řízení' %}
+
+{% block content %}
+  <p>
+    <strong>Název publikace:</strong>
+    <a href="index.php?page=publication&id={{ publication.id }}">{{ publication.title }}</a>
+  </p>
+
+  <h2>Recenze</h2>
+  {% if reviews %}
+  <table class="table table-bordered table-condensed table-striped">
+    <tr><th>Recenzent</th><th>Recenze</th><th>Akce</th></tr>
+    {% for r in reviews %}
+    <tr>
+      <td>{{ r.loadReviewer().name }}</td>
+      <td>
+        <div class="col-md-3">
+          <strong style="white-space: nowrap">Originalita</strong>
+        </div>
+        <div class="col-md-5">
+          <div class='starrr starrr-small' id='{{ "o_" ~ r.reviewerID }}'></div>
+        </div>
+        <br>
+
+        {% if r.originality %}
+        <script>
+         $('#{{ "o_" ~ r.reviewerID }}').starrr({
+           rating: {{ r.originality | default('null') }},
+           readOnly: true,
+         });
+        </script>
+        {% endif %}
+
+        <div class="col-md-3">
+          <strong style="white-space: nowrap">Technická kvalita</strong>
+        </div>
+        <div class="col-md-5">
+          <div class='starrr starrr-small' id='{{ "t_" ~ r.reviewerID }}'></div>
+        </div>
+        <br>
+
+        {% if r.techQuality %}
+        <script>
+         $('#{{ "t_" ~ r.reviewerID }}').starrr({
+           rating: {{ r.techQuality | default('null')  }},
+           readOnly: true,
+         });
+        </script>
+        {% endif %}
+
+        <div class="col-md-3">
+          <strong style="white-space: nowrap">Jazyková kvalita</strong>
+        </div>
+        <div class="col-md-5">
+          <div class='starrr starrr-small' id='{{ "l_" ~ r.reviewerID }}'></div>
+        </div>
+        <br>
+
+        {% if r.langQuality %}
+        <script>
+         $('#{{ "l_" ~ r.reviewerID }}').starrr({
+           rating: {{ r.langQuality | default('null')  }},
+           readOnly: true,
+         });
+        </script>
+        {% endif %}
+
+        {% if r.message %}
+        <div class="col-md-3">
+          <strong>Komentář</strong>
+        </div>
+        <div class="col-md-9">
+          <p>{{ r.message }}</p>
+        </div>
+        {% endif %}
+      </td>
+      <td>
+        <a href="index.php?page=remove-review-service&publication={{ publication.id }}&user={{ r.reviewerID }}"
+           class="btn btn-danger btn-xs">Smazat</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" id="menu" data-toggle="dropdown">
+      Přiřadit recenzenta
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu">
+      {% for u in free_reviewers %}
+        <li role="presentation">
+          <a role="menuitem" href="index.php?page=select-reviewer-service&publication={{ publication.id }}&reviewer={{ u.id }}">{{ u.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <h2>Rozhodnutí</h2>
+  <form class="form-horizontal" action="index.php?page=set-publication-state-service" method="POST">
+  <fieldset>
+
+  <!-- ID článku -->
+  <input id="id" name="id" type="hidden" value="{{ publication.id }}">
+
+  <!-- Multiple Radios -->
+  <div class="form-group">
+    <label class="col-md-4 control-label">Verdikt</label>
+    <div class="col-md-4">
+      <div class="radio">
+        <label for="radios-0">
+          <input type="radio" name="state" id="radios-0" value="PUBLISHED">
+          Povolit
+        </label>
+      </div>
+      <div class="radio">
+        <label for="radios-1">
+          <input type="radio" name="state" id="radios-1" value="REJECTED">
+          Zamítnout
+        </label>
+      </div>
+      {% if publication.state != 'PENDING' %}
+      <!-- zamítnutý nebo publikovaný článek je možné vrátit -->
+      <div class="radio">
+        <label for="radios-2">
+          <input type="radio" name="state" id="radios-2" value="PENDING">
+          Nepublikováno
+        </label>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="message">Odůvodnění</label>
+    <div class="col-md-6">
+      <textarea id="message" name="message" class="form-control input-md"
+                placeholder="" maxlength="128" rows="3"></textarea>
+      <span id="message-count" class="char-count-label"></span>
+    </div>
+  </div>
+  <script>
+    // po prvním napsaném znaku zobrazí popisek s počtem zbývajích znaků
+    $("#message").keyup(function(){
+      $("#message-count").text("Zbývajících znaků: " + (128 - $(this).val().length));
+    });
+  </script>
+
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-4">
+      <button class="btn btn-primary">Odeslat</button>
+    </div>
+  </div>
+
+  </fieldset>
+  </form>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "layout.twig" %}
+
+{% set content_title = p.title %}
+
+{% block content %}
+  <p>
+    <strong>Autor:</strong>
+    {% if authors|length > 1 %}
+      {% for u in authors %}
+        {{ u.name }},
+      {% endfor %}
+    {% elseif authors|length == 1 %}
+      {% for u in authors %}
+        {{ u.name }}
+      {% endfor %}
+    {% else %}
+      &lt;Anonym&gt;
+    {% endif %}
+  </p>
+
+  <strong>Abstrakt</strong>
+  <p>{{ p.abstract }}</p>
+
+  <a href="index.php?page=download&publication={{ p.id }}" class="btn btn-info" role="button">Download</a>
+
+  <h2>Komentáře</h2>
+  {% for c in comments %}
+    <div class="comment">
+      <strong>{{ c.user.name }}</strong> <small>({{ c.date }})</small><br>
+      <p>{{ c.message }}</p>
+    </div>
+  {% else %}
+    <p>Žádné komentáře.</p>
+  {% endfor %}
+
+  {% if user_present %}
+    <form class="form-horizontal" action="index.php?page=add-comment-service" method="POST">
+    <fieldset>
+
+    <!-- Form Name -->
+    <legend>Přidat komentář</legend>
+
+    <!-- ID článku -->
+    <input id="id" name="publication" type="hidden" value="{{ p.id }}">
+
+    <!-- Textarea -->
+    <div class="form-group">
+      <label class="col-md-2 control-label" for="message">Komentář</label>
+      <div class="col-md-8">
+        <textarea class="form-control" id="message" name="message"
+                  maxlength="1024" rows="6"></textarea>
+        <span id="message-count" class="char-count-label"></span>
+      </div>
+    </div>
+    <script>
+      // po prvním napsaném znaku zobrazí popisek s počtem zbývajích znaků
+      $("#message").keyup(function(){
+        $("#message-count").text("Zbývajících znaků: " + (1024 - $(this).val().length));
+      });
+    </script>
+
+    <!-- Button -->
+    <div class="form-group">
+      <label class="col-md-2 control-label" for="apply"></label>
+      <div class="col-md-4">
+        <button id="apply" class="btn btn-primary">Odeslat</button>
+      </div>
+    </div>
+
+    </fieldset>
+    </form>
+  {% else %}
+    <p>Pro přidání komentáře se přihlašte</p>
+  {% endif %}
+
+{% endblock %}

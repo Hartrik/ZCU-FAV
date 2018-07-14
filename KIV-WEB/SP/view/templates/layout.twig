@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="lib/Bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/Bootstrap/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/starrr/starrr.css">
+    <link rel="stylesheet" href="view/css/styles.css">
+
+    <script src="lib/jQuery/jquery.min.js"></script>
+    <script src="lib/Bootstrap/bootstrap.min.js"></script>
+    <script src="lib/starrr/starrr.js"></script>
+
+    <title>{{ title }}</title>
+  </head>
+
+  <body>
+    <!-- navigace -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.php">Programátorská konference</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="index.php?page=article&id=1">O konferenci</a>
+            </li>
+            <li>
+              <a href="index.php?page=article&id=2">Termíny</a>
+            </li>
+            <li>
+              <a href="index.php?page=publications">Publikace</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% if enable_delete_dialog %}
+      <!-- dialogy -->
+      <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              Varování
+            </div>
+            <div class="modal-body">
+              Opravdu chcete smazat záznam?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <a id="confirm-delete-btn-ok" class="btn btn-danger btn-ok">Smazat</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        $(document).ready(function() {
+          $('#confirm-delete').on('shown.bs.modal', function(event) {
+            // link z atributu data-href zdrojového <a> se nastaví na tlačítko dialogu
+            var link = $(event.relatedTarget).data('href');
+            $('#confirm-delete-btn-ok').attr('href', link);
+          });
+        });
+      </script>
+    {% endif %}
+
+    <!-- obsah stránky -->
+    <div class="container article">
+
+      <div class="row">
+        <div class="col-md-8">
+          <article>
+            {% if error %}
+            <div class="error-box">{{ error }}</div>
+            {% endif %}
+
+            <h1 class="page-header">{{ content_title }}</h1>
+            {% block content %}{% endblock %}
+          </article>
+        </div>
+
+        <div class="col-md-4 sidebar">
+          {% if not user_present %}
+          <div class="well">
+            <h4>Přihlášení</h4>
+            <form class="form-horizontal" action="index.php?page=login-service" method="POST">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="login-id">Login</label>
+                <div class="col-sm-10">
+                  <input type="text" id="login-id" name="login" required=""
+                         class="form-control" placeholder="Zadejte login" maxlength="30">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pass">Heslo</label>
+                <div class="col-sm-10">
+                  <input type="password" id="pass" name="pass" required=""
+                         class="form-control" placeholder="Zadejte heslo" maxlength="30">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">Odeslat</button>
+                  <a href="index.php?page=register" style="margin-left: 10px">Registrovat</a>
+                </div>
+              </div>
+            </form>
+          </div>
+          {% endif %}
+
+          {% if user_role == "EDITOR" %}
+          <div class="well">
+            <h4>Přihlášený uživatel <small style="white-space: nowrap">({{ user_name }})</small></h4>
+            <div class="list-group">
+              <a href="index.php?page=publications-administration" class="list-group-item">Editace publikací</a>
+              <a href="index.php?page=logout-service" class="list-group-item list-group-item-warning">Odhlásit</a>
+            </div>
+          </div>
+          {% endif %}
+          {% if user_role == "REVIEWER" %}
+          <div class="well">
+            <h4>Přihlášen jako recenzent <small style="white-space: nowrap">({{ user_name }})</small></h4>
+            <div class="list-group">
+              <a href="index.php?page=publications-administration" class="list-group-item">Recenze publikací</a>
+              <a href="index.php?page=logout-service" class="list-group-item list-group-item-warning">Odhlásit</a>
+            </div>
+          </div>
+          {% endif %}
+          {% if user_role == "ADMIN" %}
+          <div class="well">
+            <h4>Přihlášen jako administrátor <small style="white-space: nowrap">({{ user_name }})</small></h4>
+            <div class="list-group">
+              <a href="index.php?page=publications-administration" class="list-group-item">Správa publikací</a>
+              <a href="index.php?page=user-administration" class="list-group-item">Správa uživatelů</a>
+              <a href="index.php?page=logout-service" class="list-group-item list-group-item-warning">Odhlásit</a>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- patička -->
+      <footer>
+        <hr>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright &copy; Patrik Harag 2016</p>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </body>
+</html>
