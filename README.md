@@ -6,25 +6,27 @@ Některé projekty měly původně svůj vlastní repozitář a později sem byl
 ## 2015/16
 
 | Předmět | Semestr | Obsah |
-| ---| --- | --- |
-| [KIV-PPA1](KIV-PPA1) | ZS | Semestrální práce – vizualizace řazení |
-| [KIV-UPG](KIV-UPG)   | LS | Semestrální práce – hra dělostřelec |
-| [KIV-PPA2](KIV-PPA2) | LS | Cvičení <br> Semestrální práce – prohledávání grafů |
+| --- | --- | --- |
+| [KIV-PPA1](KIV-PPA1) | ZS | [Semestrální práce – vizualizace řazení](KIV-PPA1/PPA1%20-%20SP) |
+| [KIV-UPG](KIV-UPG)   | LS | [Semestrální práce – hra dělostřelec](KIV-UPG/UPG%20-%20SP) |
+| [KIV-PPA2](KIV-PPA2) | LS | [Cvičení](KIV-PPA2) <br> [Semestrální práce – prohledávání grafů](KIV-PPA2/PPA2%20-%20SP) |
 
 ## 2016/17
 
 | Předmět | Semestr | Obsah |
-| ---| --- | --- |
-| [KIV-PC](KIV-PC) | ZS | Semestrální práce – interpret Lispu |
-| [KIV-PRO](KIV-PRO) | ZS | Semestrální práce – překlad a zjednodušení odborného článku <br> Semestrální práce – vykreslování stromů |
-| [KIV-PT](KIV-PT) | ZS | Semestrální práce – práce s textem (vyhledávání, edit distance, trie...) |
-| [KIV-TI](KIV-TI) | ZS | Semestrální práce – program pro komprimaci souborů Huffmanovým kódováním |
-| [KIV-WEB](KIV-WEB) | ZS | Semestrální práce – malý redakční systém |
-| [KIV-UIR](KIV-UIR) | LS | Cvičení <br> Semestrální práce – klasifikace dokumentů |
-| [KIV-ZSWI](KIV-ZSWI) | LS | Semestrální práce – nástroj pro převod dokumentů z formátu Markdown do formátu OpenDocument (*.odt*) |
+| --- | --- | --- |
+| [KIV-PC](KIV-PC) | ZS | [Semestrální práce – interpret Lispu](https://github.com/Hartrik/KIV-PC) |
+| [KIV-PRO](KIV-PRO) | ZS | [Semestrální práce – překlad a zjednodušení odborného článku](KIV-PRO/SP-1) <br> [Semestrální práce – vykreslování stromů](KIV-PRO/SP-2) |
+| [KIV-PT](KIV-PT) | ZS | [Semestrální práce – práce s textem (vyhledávání, edit distance, trie...)](https://github.com/Hartrik/KIV-PT) |
+| [KIV-TI](KIV-TI) | ZS | [Semestrální práce – program pro komprimaci souborů Huffmanovým kódováním](https://github.com/Hartrik/KIV-TI) |
+| [KIV-WEB](KIV-WEB) | ZS | [Semestrální práce – malý redakční systém](KIV-WEB/SP) |
+| [KIV-UIR](KIV-UIR) | LS | [Cvičení](KIV-UIR/CV) <br> [Semestrální práce – klasifikace dokumentů](KIV-UIR/SP) |
+| [KIV-ZSWI](KIV-ZSWI) | LS | [**Semestrální práce – nástroj pro převod dokumentů z formátu Markdown do formátu OpenDocument (.odt)**](https://github.com/abcBHM/MD2odt) |
 
 ## 2017/18
 
 | Předmět | Semestr | Obsah |
-| ---| --- | --- |
-| [KIV-BIT](KIV-BIT) | LS | Cvičení <br> Semestrální práce – implementace blokové šifry DES |
+| --- | --- | --- |
+| KIV-ZOS | ZS | [Virtuální souborový systém na bázi NTFS](https://github.com/Hartrik/KIV-ZOS) |
+| KIV-UPS | ZS | [**Online Puzzle (C server, Java klient)**](https://github.com/Hartrik/KIV-UPS) |
+| [KIV-BIT](KIV-BIT) | LS | [Cvičení](KIV-BIT/CV) <br> [Semestrální práce – implementace blokové šifry DES](KIV-BIT/SP) |
