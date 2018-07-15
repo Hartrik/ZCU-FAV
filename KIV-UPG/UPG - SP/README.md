@@ -12,5 +12,3 @@ Další podrobnosti v [uživatelské dokumentaci](doc/documentation.pdf).
 ![Preview 2](doc/image-2.png)
 
 ![Preview 3](doc/image-3.png)
-
-![Preview 4](doc/image-4.png)
