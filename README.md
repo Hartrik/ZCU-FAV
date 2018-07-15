@@ -15,13 +15,13 @@ Některé projekty měly původně svůj vlastní repozitář a později sem byl
 
 | Předmět | Semestr | Obsah |
 | --- | --- | --- |
-| [KIV-PC](KIV-PC) | ZS | [Semestrální práce – interpret Lispu](https://github.com/Hartrik/KIV-PC) |
+| [KIV-PC](KIV-PC) | ZS | [Semestrální práce – interpret Lispu](KIV-PC/SP) |
 | [KIV-PRO](KIV-PRO) | ZS | [Semestrální práce – překlad a zjednodušení odborného článku](KIV-PRO/SP-1) <br> [Semestrální práce – vykreslování stromů](KIV-PRO/SP-2) |
-| [KIV-PT](KIV-PT) | ZS | [Semestrální práce – práce s textem (vyhledávání, edit distance, trie...)](https://github.com/Hartrik/KIV-PT) |
-| [KIV-TI](KIV-TI) | ZS | [Semestrální práce – program pro komprimaci souborů Huffmanovým kódováním](https://github.com/Hartrik/KIV-TI) |
+| KIV-PT | ZS | [Semestrální práce – práce s textem (vyhledávání, edit distance, trie...)](https://github.com/Hartrik/KIV-PT) |
+| KIV-TI | ZS | [Semestrální práce – program pro komprimaci souborů Huffmanovým kódováním](https://github.com/Hartrik/KIV-TI) |
 | [KIV-WEB](KIV-WEB) | ZS | [Semestrální práce – malý redakční systém](KIV-WEB/SP) |
 | [KIV-UIR](KIV-UIR) | LS | [Cvičení](KIV-UIR/CV) <br> [Semestrální práce – klasifikace dokumentů](KIV-UIR/SP) |
-| [KIV-ZSWI](KIV-ZSWI) | LS | [**Semestrální práce – nástroj pro převod dokumentů z formátu Markdown do formátu OpenDocument (.odt)**](https://github.com/abcBHM/MD2odt) |
+| KIV-ZSWI | LS | [**Semestrální práce – nástroj pro převod dokumentů z formátu Markdown do formátu OpenDocument (.odt)**](https://github.com/abcBHM/MD2odt) |
 
 ## 2017/18
 
