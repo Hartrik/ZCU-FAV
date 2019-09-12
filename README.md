@@ -37,3 +37,4 @@ Některé projekty měly původně svůj vlastní repozitář a později sem byl
 | --- | --- | --- |
 | KIV-PIA | ZS | [Bankovní aplikace ve Springu](https://github.com/Hartrik/KIV-PIA) |
 | KIV-FJP | ZS | [**Programovací jazyk na bázi Lispu/Clojure**](https://github.com/kivBH/bh-lisp) |
+| KIV-DB2 | LS | [Hra miny v PL/SQL](https://github.com/Hartrik/KIV-DB2) |
