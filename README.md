@@ -36,3 +36,4 @@ Některé projekty měly původně svůj vlastní repozitář a později sem byl
 | Předmět | Semestr | Obsah |
 | --- | --- | --- |
 | KIV-PIA | ZS | [Bankovní aplikace ve Springu](https://github.com/Hartrik/KIV-PIA) |
+| KIV-FJP | ZS | [**Programovací jazyk na bázi Lispu/Clojure**](https://github.com/kivBH/bh-lisp) |
