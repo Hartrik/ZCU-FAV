@@ -1,0 +1,1 @@
+Kompresní poměr je podíl velikosti nekomprimovaných (vstupních) dat ku velikosti komprimovaných (výstupních) dat.

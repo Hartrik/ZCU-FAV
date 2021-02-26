@@ -18,7 +18,7 @@ Některé projekty měly původně svůj vlastní repozitář a později sem byl
 | [KIV-PC](KIV-PC) | ZS | [Semestrální práce – interpret Lispu](KIV-PC/SP) |
 | [KIV-PRO](KIV-PRO) | ZS | [Semestrální práce – překlad a zjednodušení odborného článku](KIV-PRO/SP-1) <br> [Semestrální práce – vykreslování stromů](KIV-PRO/SP-2) |
 | [KIV-PT](KIV-PT) | ZS | [Týmová semestrální práce – práce s textem (vyhledávání, edit distance, trie...)](KIV-PT/SP) |
-| KIV-TI | ZS | [Týmová semestrální práce – program pro komprimaci souborů Huffmanovým kódováním](https://github.com/Hartrik/KIV-TI) |
+| [KIV-TI](KIV-TI) | ZS | [Týmová semestrální práce – program pro komprimaci souborů Huffmanovým kódováním](KIV-TI/SP) |
 | [KIV-WEB](KIV-WEB) | ZS | [Semestrální práce – malý redakční systém](KIV-WEB/SP) |
 | [KIV-UIR](KIV-UIR) | LS | [Cvičení](KIV-UIR/CV) <br> [Semestrální práce – klasifikace dokumentů](KIV-UIR/SP) |
 | KIV-ZSWI | LS | [**Týmová semestrální práce – nástroj pro převod dokumentů z Markdown (.md) do OpenDocument (.odt)**](https://github.com/abcBHM/MD2odt) |
