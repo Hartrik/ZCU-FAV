@@ -1,0 +1,11 @@
+
+#LaTEX
+/*.aux
+/*.log
+/*.out
+/*.toc
+/*.bbl
+/*.blg
+/*.synctex.gz
+
+kiv-db2-sp.pdf

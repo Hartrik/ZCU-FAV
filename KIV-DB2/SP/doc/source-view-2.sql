@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW PORAZENI AS
+    SELECT h.ID, o.RADKY, o.SLOUPCE, o.MINY,
+            (SELECT COUNT(*) FROM MINA m
+                    INNER JOIN POLE p ON m.POLE_ID = p.ID
+                    WHERE p.OBLAST_ID = h.OBLAST_ID AND p.MINA = -1)
+                    AS MINY_SPRAVNE,
+            (h.POSLEDNI_TAH - h.PRVNI_TAH) AS TRVANI
+    FROM HRA h INNER JOIN OBLAST o ON h.OBLAST_ID = o.ID
+    WHERE h.STAV_ID = 3
+    ORDER BY (h.POSLEDNI_TAH - h.PRVNI_TAH);

@@ -38,4 +38,4 @@ Další ho stále mají, a tak je zde pouze odkaz.
 | --- | --- | --- |
 | KIV-PIA | ZS | [Semestrální práce – bankovní aplikace ve Springu](https://github.com/Hartrik/KIV-PIA) |
 | KIV-FJP | ZS | [**Týmová semestrální práce – programovací jazyk na bázi Lispu/Clojure**](https://github.com/kivBH/bh-lisp) |
-| KIV-DB2 | LS | [Semestrální práce – hra miny v PL/SQL](https://github.com/Hartrik/KIV-DB2) |
+| [KIV-DB2](KIV-DB2) | LS | [Semestrální práce – hra miny v PL/SQL](KIV-DB2/SP) |

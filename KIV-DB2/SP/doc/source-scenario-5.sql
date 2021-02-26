@@ -1,0 +1,7 @@
+-- počet chybně označených min
+SELECT X, Y FROM CHYBNE_MINY WHERE OBLAST_ID = 0;
+
+-- přehledy
+SELECT * FROM HRA;
+SELECT * FROM VITEZOVE;
+SELECT * FROM PORAZENI;
