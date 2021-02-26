@@ -1,0 +1,342 @@
+\documentclass[12pt, a4paper]{report}
+
+\usepackage[czech]{babel}
+\usepackage[IL2]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}  % lepší kvalita PDF
+
+\usepackage[a4paper,top=3cm,bottom=3cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{enumitem}
+\usepackage[colorlinks=true, allcolors=black]{hyperref}
+\usepackage{url}
+\usepackage{caption}
+\usepackage{float}
+
+\usepackage{pdfpages}
+
+
+% formátování zdrojového kódu
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=C,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=4,
+	extendedchars=true,
+	literate=%
+	{á}{{\'a}}1
+	{č}{{\v{c}}}1
+	{ď}{{\v{d}}}1
+	{é}{{\'e}}1
+	{ě}{{\v{e}}}1
+	{í}{{\'i}}1
+	{ň}{{\v{n}}}1
+	{ó}{{\'o}}1
+	{ř}{{\v{r}}}1
+	{š}{{\v{s}}}1
+	{ť}{{\v{t}}}1
+	{ú}{{\'u}}1
+	{ů}{{\r{u}}}1
+	{ý}{{\'y}}1
+	{ž}{{\v{z}}}1
+	{Á}{{\'A}}1
+	{Č}{{\v{C}}}1
+	{Ď}{{\v{D}}}1
+	{É}{{\'E}}1
+	{Ě}{{\v{E}}}1
+	{Í}{{\'I}}1
+	{Ň}{{\v{N}}}1
+	{Ó}{{\'O}}1
+	{Ř}{{\v{R}}}1
+	{Š}{{\v{S}}}1
+	{Ť}{{\v{T}}}1
+	{Ú}{{\'U}}1
+	{Ů}{{\r{U}}}1
+	{Ý}{{\'Y}}1
+	{Ž}{{\v{Z}}}1
+}
+\lstset{language=C}
+
+
+% údaje na titulní straně
+\title{Virtuální souborový systém\\na bázi NTFS}
+\def \thesubtitle {Semestrální práce z předmětu KIV/ZOS}
+\author{Patrik Harag}
+\def \theauthoremail {harag@students.zcu.cz}
+\def \theauthorid {(A15B0034P)}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{figure}
+		\includegraphics[height=50mm]{img-fav-logo}
+	\end{figure}
+	
+	\centering
+	{\large \hspace{1mm} \par} % tady musí být nějaký text jinak nefunguje vertikální odsazení
+	\vspace{15ex}
+	
+	{\scshape\Large \thesubtitle \par}
+	\vspace{1.5ex}
+	{\huge\bfseries \thetitle \par}
+	\vspace{2ex}
+	{\Large\itshape \theauthor \par}
+	\vspace{2ex}
+	{\texttt{\theauthoremail} \par}
+	\vspace{1ex}
+	{\texttt{\theauthorid} \par}
+	\vspace{5ex}
+	%{{Celková doba řešení: \textgreaterX h} \par}
+	
+	\vfill
+
+	{\large \today\par}
+\end{titlepage}
+
+% strana s obsahem
+\setcounter{page}{0} 
+\tableofcontents
+\thispagestyle{empty}
+
+
+\chapter{Úvod}
+\section{Zadání}
+Implementace virtuálního souborového systému na bázi NTFS s podporou následujících příkazů:
+\begin{itemize}
+	\item \verb|pwd| -- vypíše aktuální cestu.
+	\item \verb|cd <path>| -- změní aktuální cestu.
+	\item \verb|cp <src_path> <dest_path>| -- zkopíruje soubor.
+	\item \verb|mv <src_path> <dest_path>| -- přesune soubor nebo složku.
+	\item \verb|rm <path>| -- smaže soubor.
+	\item \verb|mkdir <path>| -- vytvoří adresář.
+	\item \verb|rmdir <path>| -- smaže prázdný adresář.
+	\item \verb|ls [path]| -- vypíše obsah adresáře.
+	\item \verb|cat <path>| -- vypíše obsah souboru.
+	\item \verb|info <path>| -- vypíše informace o souboru/adresáři
+	\item \verb|incp <src_path> <dest_path>| -- nahraje soubor z virtuálního \emph{FS} do hostitelského \emph{FS}.
+	\item \verb|outcp <src_path> <dest_path>| -- nahraje soubor z hostitelského \emph{FS} do virtuálního \emph{FS}.
+	\item \verb|load <path>| -- načte soubor s příkazy a sekvenčně je vykoná.
+\end{itemize}
+
+\noindent
+Dále implementace defragmentace a kontroly konzistence.\\
+
+\noindent
+Více v přiloženém zadání.
+
+
+\chapter{Programátorská dokumentace}
+
+Program byl vyvinut v C 99.
+
+\section{Seznam zdrojových souborů}
+\begin{itemize}
+	\item \emph{main.c} -- obsahuje vstupní funkci, zpracovává parametry a spouští REPL.
+	\item \emph{utils.c/h} -- obsahuje různé pomocné funkce.
+	\item \emph{repl.c/h} -- obsahuje \emph{read–eval–print-loop} (CLI).
+	\item \emph{commands.c/h} -- obsahuje obsluhu všech příkazů, především ošetření vstupů.
+	\item \emph{io.c/h} -- řeší zápis/čtení pseudo NTFS do/ze souboru.
+	\item \emph{vfs.c/h} -- obsahuje základní funkce pro práci s \emph{VFS} (Virtual File System).
+	\item \emph{vfs-bitmap.c/h} -- obsahuje nízkoúrovňové funkce pro práci s bitmapou.
+	\item \emph{vfs-boot-record.c/h} -- obsahuje nízkoúrovňové funkce pro práci s \emph{boot record}.
+	\item \emph{vfs-mft.c/h} -- obsahuje nízkoúrovňové funkce pro práci s \emph{MFT}.
+	\item \emph{vfs-module-allocation.c/h} --  obsahuje funkce, které umožňují alokovat a uvolňovat různé zdroje.
+	\item \emph{vfs-module-consistency.c/h} -- obsahuje funkce pro ověřování konzistence \emph{VFS}.
+	\item \emph{vfs-module-defragmentation.c/h} -- obsahuje funkce pro defragmentaci.
+	\item \emph{vfs-module-find.c/h} -- obsahuje funkce pro vyhledávání \emph{MFT} položek.
+	\item \emph{vfs-module-utils.c/h} -- obsahuje různé pomocné funkce pro práci s \emph{VFS}.
+	\item \emph{vfs-module-validation.c/h} -- obsahuje různé validační funkce.
+\end{itemize}
+
+\section{Důležité datové struktury}
+
+\subsubsection*{VFS}
+Tato datová struktura, která se nachází v souboru \emph{vfs.h}, uchovává všechny důležité informace o \emph{VFS}.
+
+\begin{lstlisting}
+typedef struct _VFS {
+	char* file_name;
+	FILE* file;
+	bool initialized;
+	
+	BootRecord* boot_record;
+	Mft* mft;
+	Bitmap* bitmap;
+} VFS;
+\end{lstlisting}
+
+\subsubsection*{BootRecord}
+Struktura ze souboru \emph{vfs-boot-record.h}, která definuje \emph{boot record} tak, jak se bude ukládat do souboru.
+
+\begin{lstlisting}
+typedef struct _BootRecord {
+	char signature[16];              // login autora FS
+	char volume_descriptor[48];      // popis vygenerovaného FS
+	int32_t disk_size;               // maximální velikost obsahu
+	int32_t cluster_size;            // velikost clusteru
+	int32_t cluster_count;           // pocet clusteru
+	int32_t mft_item_count;          // počet položek v mft
+	int32_t bitmap_size;             // velikost bitmapy v bytech
+} BootRecord;
+\end{lstlisting}
+
+\subsubsection*{Bitmap}
+Struktura ze souboru \emph{vfs-bitmap.h}, která definuje strukturu ukládající obsah bitmapy.
+
+\begin{lstlisting}
+typedef struct _Bitmap {
+	int32_t length;
+	unsigned char* data;
+	int32_t cluster_count;
+} Bitmap;
+\end{lstlisting}
+
+\newpage
+\subsubsection*{Mft, MftItem, MftFragment}
+V souboru \emph{vfs-mft.h} jsou definovány struktury pro práci s \emph{MFT}.
+
+\begin{lstlisting}
+/** Struktura fragmentu MFT položky tak, jak se bude ukládat do souboru */
+typedef struct _MftFragment {
+	int32_t start_index;     // start adresa
+	int32_t count;           // pocet clusteru ve fragmentu
+} MftFragment;
+
+/** Struktura MFT položky tak, jak se bude ukládat do souboru */
+typedef struct _MftItem {
+	int32_t uid;             // UID polozky, pokud UID = UID_ITEM_FREE, je polozka volna
+	int32_t parent_uid;
+	int8_t is_directory;     // soubor, nebo adresar
+	int8_t item_order;       // poradi v MFT pri vice souborech, jinak 1
+	int8_t item_total;       // celkovy pocet polozek v MFT
+	char item_name[VFS_MFT_ITEM_NAME_LENGTH];
+	int32_t item_size;       // velikost souboru v bytech
+	MftFragment fragments[VFS_MFT_FRAGMENTS_COUNT]; //fragmenty souboru
+} MftItem;
+
+/** Pomocná struktura pro MFT */
+typedef struct _MFT {
+	int32_t length;
+	MftItem* data;  // pole struktur
+} Mft;
+\end{lstlisting}
+
+
+\section{Defragmentace}
+Defragmentace může být vyvolána příkazem \verb|defragment|. 
+
+Je implementována úplná defragmentace disku. Po provedení úplné defragmentace se každý soubor skládá z maximálně jednoho fragmentu a všechny využité clustery jsou umístěny na začátek disku.
+
+\subsection*{Implementace}
+Algoritmus funguje tak, že postupně, od prvního, procházíme clustery a na dané místo se snažíme umístit obsah tak, aby po dokončení tohoto cyklu byl disk defragmentován.
+
+Při zpracování dalšího clusteru vždy najdeme první následující neprázdný cluster a podle něj určíme MFT položku (pomocí předpřipravené tabulky), která jej využívá. Dalším cílem bude tuto MFT položku, tedy jejích \emph{n} clusterů umístit na daný cluster a případně \emph{n - 1} následujících clusterů.
+
+Ve vnitřním cyklu postupně kopírujeme clustery a v případě, že některý cílový cluster není volný, realokujeme celý soubor, kterému patří někam pryč (pokud je dostatek místa, tak někam dál, abychom jej hned v příští iteraci nemuseli opět realokovat). Po skončení vnitřního cyklu pokračujeme za posledním umístěným clusterem.
+
+\section{Kontrola konzistence}
+Kontrola konzistence je prováděna při každém načtení virtuálního souborového systému ze souboru, případně může být vyvolána příkazem \verb|check consistency|.\\
+
+\noindent
+Jsou prováděny dvě kontroly:
+\begin{itemize}
+	\item Zda velikosti položek odpovídají počtu jejich clusterů.
+	\item Zda není cluster referencován více položkami.
+\end{itemize}
+
+\subsection*{Implementace}
+Úloha je paralelizována. Je vytvořeno \emph{n} vláken a každé vlákno si říká o další položky ke kontrole. Nad položkou provede obě dvě kontroly.\\
+
+\noindent
+Je přitom využívána sdílená struktura společná pro všechny vlákna:
+\begin{lstlisting}
+typedef struct _CheckContext {
+	VFS* vfs;
+	int32_t i;  // index další položky ke zpracování
+	bool consistent;
+	pthread_mutex_t mutex;
+	MftItem** clusters;  // tabulka cluster index => MftItem*
+} CheckContext;
+\end{lstlisting}
+
+
+\chapter{Uživatelská dokumentace}
+
+\paragraph{Sestavení}
+Pro sestavení je vyžadován GNU Linux.
+Sestavení proběhne po zadání příkazu \verb|make| v kořenovém adresáři.
+
+\paragraph{Spuštění}
+Pro spuštění je vyžadován GNU Linux.
+Spuštění proběhne po zadání příkazu \verb|./build/ntfs-dist <název souboru>|.
+
+\section{Seznam příkazů}
+
+\paragraph{Inicializační příkazy}
+\begin{itemize}
+	\item \verb|init| -- inicializuje \emph{VFS} o velikosti disku 10 kB (jako \verb|init 10240|). Velikost clusteru je 256 B.
+	\item \verb|init <disk_size_in_bytes>| -- inicializuje \emph{VFS}. K zadané velkosti se připočte ještě \emph{boot record}, bitmapa a \emph{MFT} (které bude mít cca 10\% velikosti disku). Velikost clusteru je 256 B.
+	\item \verb|init <cluster_count> <mft_items_count>| -- inicializuje \emph{VFS}. Velikost clusteru je 256 B.
+	\item \verb|init <cluster_count> <cluster_size_in_bytes> <mft_items_count>| -- inicializuje \emph{VFS}.
+\end{itemize}
+
+\paragraph{Informativní a debug příkazy}
+\begin{itemize}
+	\item \verb|df| -- vypíše informace o obsazenosti.
+	\item \verb|show parameters| -- vypíše parametry \emph{VFS}.
+	\item \verb|show bitmap| -- zbrazí bitmapu (0 $\rightarrow$ volný cluster, 1 $\rightarrow$ obsazený cluster).
+	\item \verb|show mft| -- vypíše položky \emph{MFT}.
+\end{itemize}
+
+\paragraph{Základní příkazy}
+\begin{itemize}
+	\item \verb|pwd| -- vypíše aktuální cestu.
+	\item \verb|cd <path>| -- změní aktuální cestu.
+	\item \verb|cp <src_path> <dest_path>| -- zkopíruje soubor.
+	\item \verb|mv <src_path> <dest_path>| -- přesune soubor nebo složku.
+	\item \verb|rm <path>| -- smaže soubor.
+	\item \verb|mkdir <path>| -- vytvoří adresář.
+	\item \verb|rmdir <path>| -- smaže prázdný adresář.
+	\item \verb|ls [path]| -- vypíše obsah adresáře.
+	\item \verb|cat <path>| -- vypíše obsah souboru.
+	\item \verb|info <path>| -- vypíše informace o souboru/adresáři
+	\item \verb|incp <src_path> <dest_path>| -- nahraje soubor z virtuálního \emph{FS} do hostitelského \emph{FS}.
+	\item \verb|outcp <src_path> <dest_path>| -- nahraje soubor z hostitelského \emph{FS} do virtuálního \emph{FS}.
+	\item \verb|load <path>| -- načte soubor s příkazy a sekvenčně je vykoná.
+\end{itemize}
+
+\paragraph{Ostatní příkazy}
+\begin{itemize}
+	\item \verb|reallocate <path>| -- realokuje soubor na jinou pozici - to ho může defragmentovat, pokud je k dispozici vhodné místo.
+	\item \verb|defragment| -- provede úplnou defragmentaci disku.
+	\item \verb|check consistency| -- zkontroluje konzistenci (kontrola konzistence se automaticky spouští po načtení).
+	\item \verb|disable first-fit| -- deaktivuje metodu pro vyhledávání volného místa na disku \emph{first fit}. Po deaktivaci budou vybírány vždy první volné clustery, bude tak docházet k větší fragmentaci. Slouží pro testovací účely.
+\end{itemize}
+
+
+\chapter{Závěr}
+Implementoval jsem virtuální souborový systém na bázi NTFS podle zadání. Jsou podporovány všechny požadované příkazy, defragmentace a kontrola konzistence. Byly také vytvořeno několik příkazů navíc, většina z nich pro účely kontroly správného fungování programu.
+
+Během celého vývoje jsem vytvářel funkční testy, což se mi velmi vyplatilo především v pozdějších fázích vývoje, kdy už by byl problém \uv{ohlídat} takové množství funkcí a vlastností. Zvláště v jazyce, jako je ANSI C. 
+
+\end{document}

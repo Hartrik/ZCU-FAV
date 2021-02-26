@@ -1,0 +1,20 @@
+/.tmp
+
+# CLion
+/cmake-build-debug
+/.idea
+
+# Make
+/build
+
+# Tests
+*.tmp
+
+#LaTEX
+/*/*.aux
+/*/*.log
+/*/*.out
+/*/*.toc
+/*/*.bbl
+/*/*.blg
+/*/*.synctex.gz

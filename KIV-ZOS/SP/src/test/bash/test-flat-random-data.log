@@ -1,0 +1,49 @@
+
+$ init 25 512 5
+
+$ show parameters
+File: test-flat-random-data.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 12800
+Cluster size [B]: 512
+Cluster count: 25
+Bitmap size [B] 4
+MFT size [B] 300
+MFT items count 5
+
+$ incp in-file-1.tmp f1
+OK
+
+$ incp in-file-2.tmp f2
+OK
+
+$ incp in-file-3.tmp f3
+OK
+
+$ show mft
+0   71876166     (1/1) /               dir        12 B   [s=1, c=1],
+1   708592740    (1/1) f1              file       99 B   [s=0, c=1],
+2   1483128881   (1/1) f2              file      999 B   [s=2, c=2],
+3   907283241    (1/1) f3              file     9999 B   [s=4, c=20],
+4   <empty>
+Free MFT items: 1 / 5
+
+$ df
+Total space [B]: 12800
+Free space [B]: 512
+Used space [B]: 12288 (96.00 %)
+
+$ outcp f1 out-file-1.tmp
+OK
+
+$ outcp f2 out-file-2.tmp
+OK
+
+$ outcp f3 out-file-3.tmp
+OK
+
+$ check consistency
+OK
+
+$ 

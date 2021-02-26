@@ -1,0 +1,128 @@
+
+$ init 5120
+
+$ show parameters
+File: test-paths-in-commands.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 5120
+Cluster size [B]: 256
+Cluster count: 20
+Bitmap size [B] 3
+MFT size [B] 540
+MFT items count 9
+
+$ mkdir aaa
+OK
+
+$ mkdir aaa/bbb
+OK
+
+$ mkdir aaa/bbb/111
+OK
+
+$ mkdir aaa/bbb/222
+OK
+
+$ cd aaa
+OK
+
+$ pwd
+/aaa/
+
+$ incp in-file-1.tmp bbb/111/f1
+OK
+
+$ incp in-file-2.tmp /aaa/bbb/111/f2
+OK
+
+$ ls bbb/111
+-f1
+-f2
+
+$ mv bbb/111/f2 bbb/222/f2
+OK
+
+$ ls /aaa/bbb/111
+-f1
+
+$ ls /aaa/bbb/222
+-f2
+
+$ info bbb/111/f1
+Name: f1
+UID: 537146758
+Size: 8 B
+Fragments: [start=3, count=1], 
+Clusters: 3, 
+
+$ info /aaa/bbb/222/f2
+Name: f2
+UID: 1366999021
+Size: 13 B
+Fragments: [start=5, count=1], 
+Clusters: 5, 
+
+$ cp /aaa/bbb/222/f2 /f3
+OK
+
+$ cat bbb/111/f1
+AAAAAAA
+
+$ cat /aaa/bbb/222/f2
+BBBBBBBBBBBB
+
+$ cat /f3
+BBBBBBBBBBBB
+
+$ outcp bbb/111/f1 out-file-1.tmp
+OK
+
+$ outcp /aaa/bbb/222/f2 out-file-2.tmp
+OK
+
+$ rm bbb/111/f1
+OK
+
+$ rm /aaa/bbb/222/f2
+OK
+
+$ rm /f3
+OK
+
+$ ls /aaa/bbb/111
+
+$ rmdir bbb/111
+OK
+
+$ rmdir /aaa/bbb/222
+OK
+
+$ rmdir /aaa/bbb/
+OK
+
+$ rmdir /aaa
+WORKING DIRECTORY
+
+$ cd /
+OK
+
+$ rmdir /aaa
+OK
+
+$ show mft
+0   71876166     (1/1) /               dir         0 B  
+1   <empty>
+2   <empty>
+3   <empty>
+4   <empty>
+5   <empty>
+6   <empty>
+7   <empty>
+8   <empty>
+Free MFT items: 8 / 9
+
+$ check consistency
+OK
+
+$ 

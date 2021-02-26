@@ -1,0 +1,115 @@
+
+$ init 16 8 5
+
+$ show parameters
+File: test-flat-no-fragments.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 128
+Cluster size [B]: 8
+Cluster count: 16
+Bitmap size [B] 2
+MFT size [B] 300
+MFT items count 5
+
+$ df
+Total space [B]: 128
+Free space [B]: 128
+Used space [B]: 0 (0.00 %)
+
+$ show mft
+0   71876166     (1/1) /               dir         0 B  
+1   <empty>
+2   <empty>
+3   <empty>
+4   <empty>
+Free MFT items: 4 / 5
+
+$ show bitmap
+0000000000000000
+
+$ incp in-file-1.tmp f1
+OK
+
+$ incp in-file-2.tmp f2
+OK
+
+$ cat f1
+AAAAAAA
+
+$ cat f2
+BBBBBBBBBBBB
+
+$ df
+Total space [B]: 128
+Free space [B]: 96
+Used space [B]: 32 (25.00 %)
+
+$ show mft
+0   71876166     (1/1) /               dir         8 B   [s=1, c=1],
+1   708592740    (1/1) f1              file        8 B   [s=0, c=1],
+2   1483128881   (1/1) f2              file       13 B   [s=2, c=2],
+3   <empty>
+4   <empty>
+Free MFT items: 2 / 5
+
+$ show bitmap
+1111000000000000
+
+$ rm f2
+OK
+
+$ cat f2
+FILE NOT FOUND
+
+$ df
+Total space [B]: 128
+Free space [B]: 112
+Used space [B]: 16 (12.50 %)
+
+$ show mft
+0   71876166     (1/1) /               dir         4 B   [s=1, c=1],
+1   708592740    (1/1) f1              file        8 B   [s=0, c=1],
+2   <empty>
+3   <empty>
+4   <empty>
+Free MFT items: 3 / 5
+
+$ show bitmap
+1100000000000000
+
+$ incp in-file-3.tmp f3
+OK
+
+$ cat f1
+AAAAAAA
+
+$ cat f3
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+$ outcp f1 out-file-1.tmp
+OK
+
+$ outcp f3 out-file-3.tmp
+OK
+
+$ df
+Total space [B]: 128
+Free space [B]: 48
+Used space [B]: 80 (62.50 %)
+
+$ show mft
+0   71876166     (1/1) /               dir         8 B   [s=1, c=1],
+1   708592740    (1/1) f1              file        8 B   [s=0, c=1],
+2   907283241    (1/1) f3              file       64 B   [s=2, c=8],
+3   <empty>
+4   <empty>
+Free MFT items: 2 / 5
+
+$ show bitmap
+1111111111000000
+
+$ check consistency
+OK
+
+$ 

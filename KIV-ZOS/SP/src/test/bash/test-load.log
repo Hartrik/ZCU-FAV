@@ -1,0 +1,32 @@
+
+$ load script.tmp
+
+>>> init 5120
+
+>>> show parameters
+File: test-load.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 5120
+Cluster size [B]: 256
+Cluster count: 20
+Bitmap size [B] 3
+MFT size [B] 540
+MFT items count 9
+
+>>> incp in-file-1.tmp f1
+OK
+
+>>> incp in-file-2.tmp f2
+OK
+
+$ cat f1
+AAAAAAA
+
+$ cat f2
+BBBBBBBBBBBB
+
+$ check consistency
+OK
+
+$ 

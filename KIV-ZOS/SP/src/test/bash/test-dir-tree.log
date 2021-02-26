@@ -1,0 +1,101 @@
+
+$ init 5120
+
+$ show parameters
+File: test-dir-tree.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 5120
+Cluster size [B]: 256
+Cluster count: 20
+Bitmap size [B] 3
+MFT size [B] 540
+MFT items count 9
+
+$ pwd
+/
+
+$ mkdir 1
+OK
+
+$ mkdir 2
+OK
+
+$ mkdir 3
+OK
+
+$ cd 2
+OK
+
+$ pwd
+/2/
+
+$ mkdir 2.1
+OK
+
+$ mkdir 2.2
+OK
+
+$ mkdir 2.3
+OK
+
+$ cd 2.2
+OK
+
+$ pwd
+/2/2.2/
+
+$ mkdir b
+OK
+
+$ ls
++b
+
+$ cd /
+OK
+
+$ pwd
+/
+
+$ ls
++1
++2
++3
+
+$ cd 2/2.2
+OK
+
+$ pwd
+/2/2.2/
+
+$ ls
++b
+
+$ cd /2/2.2
+OK
+
+$ pwd
+/2/2.2/
+
+$ ls
++b
+
+$ cd /2/2.2/
+OK
+
+$ pwd
+/2/2.2/
+
+$ ls
++b
+
+$ cd xxx
+PATH NOT FOUND
+
+$ cd /2/xxx
+PATH NOT FOUND
+
+$ check consistency
+OK
+
+$ 

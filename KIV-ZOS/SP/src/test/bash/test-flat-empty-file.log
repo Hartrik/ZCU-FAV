@@ -1,0 +1,68 @@
+
+$ init 10 256 5
+
+$ show parameters
+File: test-flat-empty-file.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 2560
+Cluster size [B]: 256
+Cluster count: 10
+Bitmap size [B] 2
+MFT size [B] 300
+MFT items count 5
+
+$ incp in-file-empty.tmp empty-1
+OK
+
+$ ls
+-empty-1
+
+$ info empty-1
+Name: empty-1
+UID: 708592740
+Size: 0 B
+Fragments: 
+Clusters: 
+
+$ cp empty-1 empty-2
+OK
+
+$ cp empty-1 empty-4
+OK
+
+$ mv empty-4 empty-3
+OK
+
+$ ls
+-empty-1
+-empty-2
+-empty-3
+
+$ show mft
+0   71876166     (1/1) /               dir        12 B   [s=0, c=1],
+1   708592740    (1/1) empty-1         file        0 B  
+2   1483128881   (1/1) empty-2         file        0 B  
+3   907283241    (1/1) empty-3         file        0 B  
+4   <empty>
+Free MFT items: 1 / 5
+
+$ cat empty-1
+
+$ cat empty-2
+
+$ cat empty-3
+
+$ outcp empty-1 out-file-1.tmp
+OK
+
+$ outcp empty-2 out-file-2.tmp
+OK
+
+$ outcp empty-3 out-file-3.tmp
+OK
+
+$ check consistency
+OK
+
+$ 

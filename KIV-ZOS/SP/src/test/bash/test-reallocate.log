@@ -1,0 +1,170 @@
+
+$ init 50 8 25
+
+$ disable first-fit
+OK
+
+$ show parameters
+File: test-reallocate.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 400
+Cluster size [B]: 8
+Cluster count: 50
+Bitmap size [B] 7
+MFT size [B] 1500
+MFT items count 25
+
+$ show mft
+0   71876166     (1/1) /               dir         0 B  
+1   <empty>
+2   <empty>
+3   <empty>
+4   <empty>
+5   <empty>
+6   <empty>
+7   <empty>
+8   <empty>
+9   <empty>
+10  <empty>
+11  <empty>
+12  <empty>
+13  <empty>
+14  <empty>
+15  <empty>
+16  <empty>
+17  <empty>
+18  <empty>
+19  <empty>
+20  <empty>
+21  <empty>
+22  <empty>
+23  <empty>
+24  <empty>
+Free MFT items: 24 / 25
+
+$ show bitmap
+00000000000000000000000000000000000000000000000000
+
+$ incp in-file-1.tmp f1
+OK
+
+$ incp in-file-1.tmp f2
+OK
+
+$ incp in-file-1.tmp f3
+OK
+
+$ incp in-file-1.tmp f4
+OK
+
+$ incp in-file-1.tmp f5
+OK
+
+$ incp in-file-1.tmp f6
+OK
+
+$ incp in-file-1.tmp f7
+OK
+
+$ incp in-file-1.tmp f8
+OK
+
+$ incp in-file-1.tmp f9
+OK
+
+$ incp in-file-1.tmp f10
+OK
+
+$ ls
+-f1
+-f2
+-f3
+-f4
+-f5
+-f6
+-f7
+-f8
+-f9
+-f10
+
+$ show mft
+0   71876166     (1/2) /               dir        40 B   [s=1, c=1], [s=4, c=1], [s=7, c=1], [s=10, c=1],
+1   708592740    (1/1) f1              file        8 B   [s=0, c=1],
+2   1483128881   (1/1) f2              file        8 B   [s=2, c=1],
+3   907283241    (1/1) f3              file        8 B   [s=3, c=1],
+4   442951012    (1/1) f4              file        8 B   [s=5, c=1],
+5   537146758    (1/1) f5              file        8 B   [s=6, c=1],
+6   1366999021   (1/1) f6              file        8 B   [s=8, c=1],
+7   1854614940   (1/1) f7              file        8 B   [s=9, c=1],
+8   647800535    (1/1) f8              file        8 B   [s=11, c=1],
+9   53523743     (1/1) f9              file        8 B   [s=12, c=1],
+10  71876166     (2/2)                 dir         0 B   [s=13, c=1],
+11  783815874    (1/1) f10             file        8 B   [s=14, c=1],
+12  <empty>
+13  <empty>
+14  <empty>
+15  <empty>
+16  <empty>
+17  <empty>
+18  <empty>
+19  <empty>
+20  <empty>
+21  <empty>
+22  <empty>
+23  <empty>
+24  <empty>
+Free MFT items: 13 / 25
+
+$ show bitmap
+11111111111111100000000000000000000000000000000000
+
+$ reallocate /
+
+$ show mft
+0   71876166     (1/1) /               dir        40 B   [s=15, c=5],
+1   708592740    (1/1) f1              file        8 B   [s=0, c=1],
+2   1483128881   (1/1) f2              file        8 B   [s=2, c=1],
+3   907283241    (1/1) f3              file        8 B   [s=3, c=1],
+4   442951012    (1/1) f4              file        8 B   [s=5, c=1],
+5   537146758    (1/1) f5              file        8 B   [s=6, c=1],
+6   1366999021   (1/1) f6              file        8 B   [s=8, c=1],
+7   1854614940   (1/1) f7              file        8 B   [s=9, c=1],
+8   647800535    (1/1) f8              file        8 B   [s=11, c=1],
+9   53523743     (1/1) f9              file        8 B   [s=12, c=1],
+10  <empty>
+11  783815874    (1/1) f10             file        8 B   [s=14, c=1],
+12  <empty>
+13  <empty>
+14  <empty>
+15  <empty>
+16  <empty>
+17  <empty>
+18  <empty>
+19  <empty>
+20  <empty>
+21  <empty>
+22  <empty>
+23  <empty>
+24  <empty>
+Free MFT items: 14 / 25
+
+$ show bitmap
+10110110110110111111000000000000000000000000000000
+
+$ ls
+-f1
+-f2
+-f3
+-f4
+-f5
+-f6
+-f7
+-f8
+-f9
+-f10
+
+$ check consistency
+OK
+
+$ 

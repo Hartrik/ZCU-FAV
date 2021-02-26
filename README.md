@@ -1,7 +1,8 @@
 # ZCU-FAV
 
-Obsahuje mé školní práce.
-Některé projekty měly původně svůj vlastní repozitář a později sem byly archivovány. Další ho stále mají, a tak je zde pouze odkaz.
+Obsahuje mé školní práce. Slouží jako archivační repo a rozcestník.
+Některé projekty měly původně své vlastní repo a později sem byly archivovány.
+Další ho stále mají, a tak je zde pouze odkaz.
 
 ## 2015/16
 
@@ -27,7 +28,7 @@ Některé projekty měly původně svůj vlastní repozitář a později sem byl
 
 | Předmět | Semestr | Obsah |
 | --- | --- | --- |
-| KIV-ZOS | ZS | [Semestrální práce – virtuální souborový systém na bázi NTFS](https://github.com/Hartrik/KIV-ZOS) |
+| [KIV-ZOS](KIV-ZOS) | ZS | [Semestrální práce – virtuální souborový systém na bázi NTFS](KIV-ZOS/SP) |
 | KIV-UPS | ZS | [**Semestrální práce – online Puzzle (C server, Java klient)**](https://github.com/Hartrik/KIV-UPS) |
 | [KIV-BIT](KIV-BIT) | LS | [Cvičení](KIV-BIT/CV) <br> [Semestrální práce – implementace blokové šifry DES](KIV-BIT/SP) |
 

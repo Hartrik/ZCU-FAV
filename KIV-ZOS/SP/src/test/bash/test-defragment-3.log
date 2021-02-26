@@ -1,0 +1,314 @@
+
+$ init 23 8 15
+
+$ disable first-fit
+OK
+
+$ show parameters
+File: test-defragment-3.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 184
+Cluster size [B]: 8
+Cluster count: 23
+Bitmap size [B] 3
+MFT size [B] 900
+MFT items count 15
+
+$ show mft
+0   71876166     (1/1) /               dir         0 B  
+1   <empty>
+2   <empty>
+3   <empty>
+4   <empty>
+5   <empty>
+6   <empty>
+7   <empty>
+8   <empty>
+9   <empty>
+10  <empty>
+11  <empty>
+12  <empty>
+13  <empty>
+14  <empty>
+Free MFT items: 14 / 15
+
+$ show bitmap
+00000000000000000000000
+
+$ mkdir t1
+OK
+
+$ incp in-file-1.tmp /t1/f1.1
+OK
+
+$ incp in-file-2.tmp /t1/f1.2
+OK
+
+$ incp in-file-3.tmp /t1/f1.3
+OK
+
+$ mkdir t2
+OK
+
+$ incp in-file-4.tmp /t2/f2.1
+OK
+
+$ incp in-file-5.tmp /t2/f2.2
+OK
+
+$ incp in-file-6.tmp /t2/f2.3
+OK
+
+$ mkdir t3
+OK
+
+$ incp in-file-7.tmp /t3/f3.1
+OK
+
+$ incp in-file-8.tmp /t3/f3.2
+OK
+
+$ incp in-file-9.tmp /t3/f3.3
+OK
+
+$ show mft
+0   71876166     (1/1) /               dir        12 B   [s=0, c=1], [s=11, c=1],
+1   708592740    (1/1) t1              dir        12 B   [s=2, c=1], [s=5, c=1],
+2   1483128881   (1/1) f1.1            file        7 B   [s=1, c=1],
+3   907283241    (1/1) f1.2            file        7 B   [s=3, c=1],
+4   442951012    (1/1) f1.3            file        7 B   [s=4, c=1],
+5   537146758    (1/1) t2              dir        12 B   [s=7, c=1], [s=10, c=1],
+6   1366999021   (1/1) f2.1            file        7 B   [s=6, c=1],
+7   1854614940   (1/1) f2.2            file        7 B   [s=8, c=1],
+8   647800535    (1/1) f2.3            file        7 B   [s=9, c=1],
+9   53523743     (1/1) t3              dir        12 B   [s=13, c=1], [s=16, c=1],
+10  783815874    (1/1) f3.1            file        7 B   [s=12, c=1],
+11  1643643143   (1/1) f3.2            file        7 B   [s=14, c=1],
+12  682599717    (1/1) f3.3            file        7 B   [s=15, c=1],
+13  <empty>
+14  <empty>
+Free MFT items: 2 / 15
+
+$ show bitmap
+11111111111111111000000
+
+$ rm /t1/f1.2
+OK
+
+$ incp in-file-10.tmp /t1/f1.2
+OK
+
+$ rm /t2/f2.2
+OK
+
+$ incp in-file-11.tmp /t2/f2.2
+OK
+
+$ rm /t3/f3.2
+OK
+
+$ incp in-file-12.tmp /t3/f3.2
+OK
+
+$ rm /t2/f2.2
+OK
+
+$ show mft
+0   71876166     (1/1) /               dir        12 B   [s=0, c=1], [s=11, c=1],
+1   708592740    (1/1) t1              dir        12 B   [s=2, c=1], [s=18, c=1],
+2   1483128881   (1/1) f1.1            file        7 B   [s=1, c=1],
+3   291474504    (1/1) f1.2            file       21 B   [s=3, c=1], [s=5, c=1], [s=17, c=1],
+4   442951012    (1/1) f1.3            file        7 B   [s=4, c=1],
+5   537146758    (1/1) t2              dir         8 B   [s=7, c=1],
+6   1366999021   (1/1) f2.1            file        7 B   [s=6, c=1],
+7   <empty>
+8   647800535    (1/1) f2.3            file        7 B   [s=9, c=1],
+9   53523743     (1/1) t3              dir        12 B   [s=13, c=1], [s=22, c=1],
+10  783815874    (1/1) f3.1            file        7 B   [s=12, c=1],
+11  1633529762   (1/1) f3.2            file       21 B   [s=14, c=1], [s=16, c=1], [s=21, c=1],
+12  682599717    (1/1) f3.3            file        7 B   [s=15, c=1],
+13  <empty>
+14  <empty>
+Free MFT items: 3 / 15
+
+$ show bitmap
+11111111010111111110011
+
+$ cat /t1/f1.1
+-0001-
+
+$ cat /t1/f1.3
+-0003-
+
+$ cat /t2/f2.1
+-0004-
+
+$ cat /t2/f2.3
+-0006-
+
+$ cat /t3/f3.1
+-0007-
+
+$ cat /t3/f3.3
+-0009-
+
+$ cat /t1/f1.2
+-10-abcdefghijklmnop
+
+$ cat /t3/f3.2
+-12-abcdefghijklmnop
+
+$ ls
++t1
++t2
++t3
+
+$ ls t1
+-f1.1
+-f1.3
+-f1.2
+
+$ ls t2
+-f2.1
+-f2.3
+
+$ ls t3
+-f3.1
+-f3.3
+-f3.2
+
+$ defragment
+OK
+
+$ show mft
+0   71876166     (1/1) /               dir        12 B   [s=0, c=2],
+1   708592740    (1/1) t1              dir        12 B   [s=2, c=2],
+2   1483128881   (1/1) f1.1            file        7 B   [s=7, c=1],
+3   291474504    (1/1) f1.2            file       21 B   [s=9, c=3],
+4   442951012    (1/1) f1.3            file        7 B   [s=4, c=1],
+5   537146758    (1/1) t2              dir         8 B   [s=6, c=1],
+6   1366999021   (1/1) f2.1            file        7 B   [s=5, c=1],
+7   <empty>
+8   647800535    (1/1) f2.3            file        7 B   [s=8, c=1],
+9   53523743     (1/1) t3              dir        12 B   [s=13, c=2],
+10  783815874    (1/1) f3.1            file        7 B   [s=12, c=1],
+11  1633529762   (1/1) f3.2            file       21 B   [s=16, c=3],
+12  682599717    (1/1) f3.3            file        7 B   [s=15, c=1],
+13  <empty>
+14  <empty>
+Free MFT items: 3 / 15
+
+$ show bitmap
+11111111111111111110000
+
+$ cat /t1/f1.1
+-0001-
+
+$ cat /t1/f1.3
+-0003-
+
+$ cat /t2/f2.1
+-0004-
+
+$ cat /t2/f2.3
+-0006-
+
+$ cat /t3/f3.1
+-0007-
+
+$ cat /t3/f3.3
+-0009-
+
+$ cat /t1/f1.2
+-10-abcdefghijklmnop
+
+$ cat /t3/f3.2
+-12-abcdefghijklmnop
+
+$ ls
++t1
++t2
++t3
+
+$ ls t1
+-f1.1
+-f1.3
+-f1.2
+
+$ ls t2
+-f2.1
+-f2.3
+
+$ ls t3
+-f3.1
+-f3.3
+-f3.2
+
+$ --- REOPEN ---
+
+$ show mft
+0   71876166     (1/1) /               dir        12 B   [s=0, c=2],
+1   708592740    (1/1) t1              dir        12 B   [s=2, c=2],
+2   1483128881   (1/1) f1.1            file        7 B   [s=7, c=1],
+3   291474504    (1/1) f1.2            file       21 B   [s=9, c=3],
+4   442951012    (1/1) f1.3            file        7 B   [s=4, c=1],
+5   537146758    (1/1) t2              dir         8 B   [s=6, c=1],
+6   1366999021   (1/1) f2.1            file        7 B   [s=5, c=1],
+7   <empty>
+8   647800535    (1/1) f2.3            file        7 B   [s=8, c=1],
+9   53523743     (1/1) t3              dir        12 B   [s=13, c=2],
+10  783815874    (1/1) f3.1            file        7 B   [s=12, c=1],
+11  1633529762   (1/1) f3.2            file       21 B   [s=16, c=3],
+12  682599717    (1/1) f3.3            file        7 B   [s=15, c=1],
+13  <empty>
+14  <empty>
+Free MFT items: 3 / 15
+
+$ show bitmap
+11111111111111111110000
+
+$ cat /t1/f1.1
+-0001-
+
+$ cat /t1/f1.3
+-0003-
+
+$ cat /t2/f2.1
+-0004-
+
+$ cat /t2/f2.3
+-0006-
+
+$ cat /t3/f3.1
+-0007-
+
+$ cat /t3/f3.3
+-0009-
+
+$ cat /t1/f1.2
+-10-abcdefghijklmnop
+
+$ cat /t3/f3.2
+-12-abcdefghijklmnop
+
+$ ls
++t1
++t2
++t3
+
+$ ls t1
+-f1.1
+-f1.3
+-f1.2
+
+$ ls t2
+-f2.1
+-f2.3
+
+$ ls t3
+-f3.1
+-f3.3
+-f3.2
+
+$ 

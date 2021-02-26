@@ -1,0 +1,212 @@
+
+$ init 50 8 15
+
+$ disable first-fit
+OK
+
+$ show parameters
+File: test-cp.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 400
+Cluster size [B]: 8
+Cluster count: 50
+Bitmap size [B] 7
+MFT size [B] 900
+MFT items count 15
+
+$ show mft
+0   71876166     (1/1) /               dir         0 B  
+1   <empty>
+2   <empty>
+3   <empty>
+4   <empty>
+5   <empty>
+6   <empty>
+7   <empty>
+8   <empty>
+9   <empty>
+10  <empty>
+11  <empty>
+12  <empty>
+13  <empty>
+14  <empty>
+Free MFT items: 14 / 15
+
+$ show bitmap
+00000000000000000000000000000000000000000000000000
+
+$ incp in-file-1.tmp f1
+OK
+
+$ incp in-file-1.tmp f2
+OK
+
+$ incp in-file-1.tmp f3
+OK
+
+$ incp in-file-1.tmp f4
+OK
+
+$ incp in-file-1.tmp f5
+OK
+
+$ incp in-file-1.tmp f6
+OK
+
+$ incp in-file-1.tmp f7
+OK
+
+$ incp in-file-1.tmp f8
+OK
+
+$ incp in-file-1.tmp f9
+OK
+
+$ incp in-file-1.tmp f10
+OK
+
+$ show mft
+0   71876166     (1/2) /               dir        40 B   [s=2, c=1], [s=7, c=1], [s=12, c=1], [s=17, c=1],
+1   708592740    (1/1) f1              file       13 B   [s=0, c=2],
+2   1483128881   (1/1) f2              file       13 B   [s=3, c=2],
+3   907283241    (1/1) f3              file       13 B   [s=5, c=2],
+4   442951012    (1/1) f4              file       13 B   [s=8, c=2],
+5   537146758    (1/1) f5              file       13 B   [s=10, c=2],
+6   1366999021   (1/1) f6              file       13 B   [s=13, c=2],
+7   1854614940   (1/1) f7              file       13 B   [s=15, c=2],
+8   647800535    (1/1) f8              file       13 B   [s=18, c=2],
+9   53523743     (1/1) f9              file       13 B   [s=20, c=2],
+10  71876166     (2/2)                 dir         0 B   [s=22, c=1],
+11  783815874    (1/1) f10             file       13 B   [s=23, c=2],
+12  <empty>
+13  <empty>
+14  <empty>
+Free MFT items: 3 / 15
+
+$ show bitmap
+11111111111111111111111110000000000000000000000000
+
+$ rm f1
+OK
+
+$ rm f3
+OK
+
+$ rm f5
+OK
+
+$ rm f7
+OK
+
+$ rm f9
+OK
+
+$ show mft
+0   71876166     (1/1) /               dir        20 B   [s=0, c=3],
+1   <empty>
+2   1483128881   (1/1) f2              file       13 B   [s=3, c=2],
+3   <empty>
+4   442951012    (1/1) f4              file       13 B   [s=8, c=2],
+5   <empty>
+6   1366999021   (1/1) f6              file       13 B   [s=13, c=2],
+7   <empty>
+8   647800535    (1/1) f8              file       13 B   [s=18, c=2],
+9   <empty>
+10  <empty>
+11  783815874    (1/1) f10             file       13 B   [s=23, c=2],
+12  <empty>
+13  <empty>
+14  <empty>
+Free MFT items: 9 / 15
+
+$ show bitmap
+11111000110001100011000110000000000000000000000000
+
+$ incp in-file-2.tmp f50
+OK
+
+$ cp f50 f51
+OK
+
+$ show mft
+0   71876166     (1/1) /               dir        28 B   [s=0, c=3], [s=43, c=1],
+1   1643643143   (1/2) f50             file      113 B   [s=5, c=3], [s=10, c=3], [s=15, c=3], [s=20, c=3],
+2   1483128881   (1/1) f2              file       13 B   [s=3, c=2],
+3   1643643143   (2/2)                 file        0 B   [s=25, c=3],
+4   442951012    (1/1) f4              file       13 B   [s=8, c=2],
+5   682599717    (1/1) f51             file      113 B   [s=28, c=15],
+6   1366999021   (1/1) f6              file       13 B   [s=13, c=2],
+7   <empty>
+8   647800535    (1/1) f8              file       13 B   [s=18, c=2],
+9   <empty>
+10  <empty>
+11  783815874    (1/1) f10             file       13 B   [s=23, c=2],
+12  <empty>
+13  <empty>
+14  <empty>
+Free MFT items: 6 / 15
+
+$ show bitmap
+11111111111111111111111111111111111111111111000000
+
+$ info f50
+Name: f50
+UID: 1643643143
+Size: 113 B
+Fragments: [start=5, count=3], [start=10, count=3], [start=15, count=3], [start=20, count=3], [start=25, count=3], 
+Clusters: 5, 6, 7, 10, 11, 12, 15, 16, 17, 20, 21, 22, 25, 26, 27, 
+
+$ info f51
+Name: f51
+UID: 682599717
+Size: 113 B
+Fragments: [start=28, count=15], 
+Clusters: 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 
+
+$ cat f50
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+$ cat f51
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+$ outcp f50 out-file-50.tmp
+OK
+
+$ rm f50
+OK
+
+$ incp in-file-3.tmp f52
+OK
+
+$ outcp f51 out-file-51.tmp
+OK
+
+$ outcp f52 out-file-52.tmp
+OK
+
+$ show mft
+0   71876166     (1/1) /               dir        28 B   [s=0, c=3], [s=43, c=1],
+1   291474504    (1/2) f52             file      114 B   [s=5, c=3], [s=10, c=3], [s=15, c=3], [s=20, c=3],
+2   1483128881   (1/1) f2              file       13 B   [s=3, c=2],
+3   291474504    (2/2)                 file        0 B   [s=25, c=3],
+4   442951012    (1/1) f4              file       13 B   [s=8, c=2],
+5   682599717    (1/1) f51             file      113 B   [s=28, c=15],
+6   1366999021   (1/1) f6              file       13 B   [s=13, c=2],
+7   <empty>
+8   647800535    (1/1) f8              file       13 B   [s=18, c=2],
+9   <empty>
+10  <empty>
+11  783815874    (1/1) f10             file       13 B   [s=23, c=2],
+12  <empty>
+13  <empty>
+14  <empty>
+Free MFT items: 6 / 15
+
+$ show bitmap
+11111111111111111111111111111111111111111111000000
+
+$ check consistency
+OK
+
+$ 

@@ -1,0 +1,163 @@
+
+$ init 15 8 9
+
+$ disable first-fit
+OK
+
+$ show parameters
+File: test-flat-fragments.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 120
+Cluster size [B]: 8
+Cluster count: 15
+Bitmap size [B] 2
+MFT size [B] 540
+MFT items count 9
+
+$ df
+Total space [B]: 120
+Free space [B]: 120
+Used space [B]: 0 (0.00 %)
+
+$ show mft
+0   71876166     (1/1) /               dir         0 B  
+1   <empty>
+2   <empty>
+3   <empty>
+4   <empty>
+5   <empty>
+6   <empty>
+7   <empty>
+8   <empty>
+Free MFT items: 8 / 9
+
+$ show bitmap
+000000000000000
+
+$ incp in-file-1.tmp f1
+OK
+
+$ incp in-file-1.tmp f2
+OK
+
+$ incp in-file-2.tmp f3
+OK
+
+$ incp in-file-2.tmp f4
+OK
+
+$ incp in-file-2.tmp f5
+OK
+
+$ incp in-file-1.tmp f6
+OK
+
+$ incp in-file-1.tmp f7
+OK
+
+$ df
+Total space [B]: 120
+Free space [B]: 8
+Used space [B]: 112 (93.33 %)
+
+$ show mft
+0   71876166     (1/1) /               dir        28 B   [s=1, c=1], [s=5, c=1], [s=10, c=1], [s=13, c=1],
+1   708592740    (1/1) f1              file        8 B   [s=0, c=1],
+2   1483128881   (1/1) f2              file        8 B   [s=2, c=1],
+3   907283241    (1/1) f3              file       16 B   [s=3, c=2],
+4   442951012    (1/1) f4              file       16 B   [s=6, c=2],
+5   537146758    (1/1) f5              file       16 B   [s=8, c=2],
+6   1366999021   (1/1) f6              file        8 B   [s=11, c=1],
+7   1854614940   (1/1) f7              file        8 B   [s=12, c=1],
+8   <empty>
+Free MFT items: 1 / 9
+
+$ show bitmap
+111111111111110
+
+$ rm f2
+OK
+
+$ rm f4
+OK
+
+$ rm f6
+OK
+
+$ df
+Total space [B]: 120
+Free space [B]: 56
+Used space [B]: 64 (53.33 %)
+
+$ show mft
+0   71876166     (1/1) /               dir        16 B   [s=1, c=2],
+1   708592740    (1/1) f1              file        8 B   [s=0, c=1],
+2   <empty>
+3   907283241    (1/1) f3              file       16 B   [s=3, c=2],
+4   <empty>
+5   537146758    (1/1) f5              file       16 B   [s=8, c=2],
+6   <empty>
+7   1854614940   (1/1) f7              file        8 B   [s=12, c=1],
+8   <empty>
+Free MFT items: 4 / 9
+
+$ show bitmap
+111110001100100
+
+$ incp in-file-3.tmp f11
+OK
+
+$ incp in-file-3.tmp f12
+OK
+
+$ cat f11
+CCCCCCCCCCCCCCCCCCCCCCC
+
+$ cat f12
+CCCCCCCCCCCCCCCCCCCCCCC
+
+$ outcp f11 out-file-11.tmp
+OK
+
+$ outcp f12 out-file-12.tmp
+OK
+
+$ df
+Total space [B]: 120
+Free space [B]: 0
+Used space [B]: 120 (100.00 %)
+
+$ show mft
+0   71876166     (1/1) /               dir        24 B   [s=1, c=2], [s=10, c=1],
+1   708592740    (1/1) f1              file        8 B   [s=0, c=1],
+2   647800535    (1/1) f11             file       24 B   [s=5, c=3],
+3   907283241    (1/1) f3              file       16 B   [s=3, c=2],
+4   53523743     (1/1) f12             file       24 B   [s=11, c=1], [s=13, c=2],
+5   537146758    (1/1) f5              file       16 B   [s=8, c=2],
+6   <empty>
+7   1854614940   (1/1) f7              file        8 B   [s=12, c=1],
+8   <empty>
+Free MFT items: 2 / 9
+
+$ show bitmap
+111111111111111
+
+$ info f11
+Name: f11
+UID: 647800535
+Size: 24 B
+Fragments: [start=5, count=3], 
+Clusters: 5, 6, 7, 
+
+$ info f12
+Name: f12
+UID: 53523743
+Size: 24 B
+Fragments: [start=11, count=1], [start=13, count=2], 
+Clusters: 11, 13, 14, 
+
+$ check consistency
+OK
+
+$ 

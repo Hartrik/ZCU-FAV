@@ -1,0 +1,54 @@
+
+$ init 21000 5120 10
+
+$ show parameters
+File: large-test.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 107520000
+Cluster size [B]: 5120
+Cluster count: 21000
+Bitmap size [B] 2625
+MFT size [B] 600
+MFT items count 10
+
+$ mkdir dir
+OK
+
+$ incp in-file-1.tmp /dir/f1
+OK
+
+$ mv /dir/f1 /dir/f2
+OK
+
+$ cp /dir/f2 /dir/f1
+OK
+
+$ show mft
+0   71876166     (1/1) /               dir         4 B   [s=0, c=1],
+1   708592740    (1/1) dir             dir         8 B   [s=10241, c=1],
+2   1483128881   (1/1) f2              file 52428800 B   [s=1, c=10240],
+3   907283241    (1/1) f1              file 52428800 B   [s=10242, c=10240],
+4   <empty>
+5   <empty>
+6   <empty>
+7   <empty>
+8   <empty>
+9   <empty>
+Free MFT items: 6 / 10
+
+$ df
+Total space [B]: 107520000
+Free space [B]: 2652160
+Used space [B]: 104867840 (97.53 %)
+
+$ outcp /dir/f1 out-file-1.tmp
+OK
+
+$ outcp /dir/f2 out-file-2.tmp
+OK
+
+$ check consistency
+OK
+
+$ 

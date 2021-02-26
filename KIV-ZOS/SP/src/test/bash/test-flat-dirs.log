@@ -1,0 +1,85 @@
+
+$ init 15 8 9
+
+$ show parameters
+File: test-flat-dirs.vfs
+Signature: user
+Volume descriptor: virtual file system
+Disk size [B]: 120
+Cluster size [B]: 8
+Cluster count: 15
+Bitmap size [B] 2
+MFT size [B] 540
+MFT items count 9
+
+$ incp in-file-1.tmp f1
+OK
+
+$ incp in-file-2.tmp f2
+OK
+
+$ mkdir d1
+OK
+
+$ mkdir d1
+EXIST
+
+$ mkdir d2
+OK
+
+$ show mft
+0   71876166     (1/1) /               dir        16 B   [s=4, c=2],
+1   708592740    (1/1) f1              file        8 B   [s=0, c=1],
+2   1483128881   (1/1) f2              file       13 B   [s=2, c=2],
+3   907283241    (1/1) d1              dir         0 B  
+4   442951012    (1/1) d2              dir         0 B  
+5   <empty>
+6   <empty>
+7   <empty>
+8   <empty>
+Free MFT items: 4 / 9
+
+$ ls
+-f1
+-f2
++d1
++d2
+
+$ rm f1
+OK
+
+$ rm XXX
+FILE NOT FOUND
+
+$ rm d1
+NOT FILE
+
+$ rmdir d1
+OK
+
+$ rmdir XXX
+FILE NOT FOUND
+
+$ rmdir f2
+NOT DIRECTORY
+
+$ show mft
+0   71876166     (1/1) /               dir         8 B   [s=0, c=1],
+1   <empty>
+2   1483128881   (1/1) f2              file       13 B   [s=2, c=2],
+3   <empty>
+4   442951012    (1/1) d2              dir         0 B  
+5   <empty>
+6   <empty>
+7   <empty>
+8   <empty>
+Free MFT items: 6 / 9
+
+$ ls
+-f2
++d2
+
+$ check consistency
+OK
+
+$ 
