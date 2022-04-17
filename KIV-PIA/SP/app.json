@@ -1,0 +1,6 @@
+{
+  "name": "kiv-pia",
+  "description": "Java Bank",
+  "image": "heroku/java",
+  "addons": [ "heroku-postgresql" ]
+}

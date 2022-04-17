@@ -37,7 +37,7 @@ U projektů, které mají stále vlastní public repo je zde pouze odkaz.
 
 | Předmět | Semestr | Obsah |
 | --- | --- | --- |
-| KIV-PIA | ZS | [Semestrální práce – bankovní aplikace ve Springu](https://github.com/Hartrik/KIV-PIA) (Groovy) |
+| [KIV-PIA](KIV-PIA) | ZS | [Semestrální práce – bankovní aplikace ve Springu](KIV-PIA/SP) (Groovy) |
 | KIV-FJP | ZS | [**Týmová semestrální práce – programovací jazyk na bázi Lispu/Clojure**](https://github.com/kivBH/bh-lisp) (Groovy) |
 | [KIV-DB2](KIV-DB2) | LS | [Semestrální práce – hra miny v PL/SQL](KIV-DB2/SP) (PL/SQL) |
 

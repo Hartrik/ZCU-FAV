@@ -1,0 +1,64 @@
+
+/* TEMPLATE */
+
+footer p {
+    padding-top: 12px;
+    color: gray;
+    font-size: small;
+}
+
+.article {
+    padding-bottom: 60px;
+}
+
+.nested-group-item {
+    margin-left: 8px;
+}
+
+
+/* ERROR */
+
+.error-output {
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+
+/* INDEX */
+
+.input-file-label {
+    margin-top: -8px;
+}
+
+.note {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+/* ACCOUNT */
+
+.amount-inc {
+    color: green;
+    font-weight: bold;
+}
+
+.amount-inc::before {
+    content: "+ ";
+}
+
+.amount-dec {
+    color: darkred;
+    font-weight: bold;
+}
+
+.amount-dec::before {
+    content: "- ";
+}
+
+.send-button-container {
+    padding-bottom: 16px;
+    padding-left: 24px;
+}

@@ -1,0 +1,77 @@
+
+apply plugin: 'groovy'
+
+group 'cz.hartrik.pia'
+version '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy:2.5.2"
+
+    compile "org.eclipse.jetty:jetty-webapp:9.0.6.v20130930"
+
+    compile "org.springframework:spring-web:5.1.1.RELEASE"
+    compile "org.springframework:spring-context:5.1.1.RELEASE"
+    compile "org.springframework:spring-context-support:5.1.1.RELEASE"
+    compile "org.springframework:spring-webmvc:5.1.1.RELEASE"
+    compile "org.springframework:spring-jdbc:5.1.1.RELEASE"
+    compile "org.springframework.security:spring-security-config:5.1.1.RELEASE"
+    compile "org.springframework.security:spring-security-web:5.1.1.RELEASE"
+    compile "org.springframework:spring-orm:5.1.1.RELEASE"
+    compile "org.springframework.data:spring-data-jpa:2.1.2.RELEASE"
+
+    compile "org.hibernate:hibernate-core:5.3.7.Final"
+    compile "org.hibernate:hibernate-c3p0:5.3.7.Final"
+    compile 'org.apache.derby:derby:10.14.2.0'
+    compile 'org.apache.derby:derbyclient:10.14.2.0'
+    compile "org.postgresql:postgresql:9.4-1201-jdbc4"
+    compile "com.heroku.sdk:heroku-jdbc:0.1.1"
+
+    compile "org.freemarker:freemarker:2.3.28"
+
+    compile "com.fasterxml.jackson.core:jackson-databind:2.9.4"
+
+    compile "javax.mail:mail:1.4.7"
+
+    compile "org.slf4j:slf4j-api:1.7.5"
+    compile "org.slf4j:slf4j-log4j12:1.7.5"
+
+    compile "org.xhtmlrenderer:flying-saucer-core:9.1.16"
+    compile "org.xhtmlrenderer:flying-saucer-pdf-itext5:9.1.16"
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.springframework:spring-test:5.1.1.RELEASE"
+    testCompile "org.springframework.security:spring-security-test:5.1.1.RELEASE"
+    testCompile "com.jayway.jsonpath:json-path:0.8.1"
+}
+
+test {
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
+}
+
+// artifacts
+
+jar {
+    archiveName = 'java-bank-web-app.jar'
+    manifest {
+        attributes(
+                'Implementation-Title': 'kiv-pia',
+                'Implementation-Version': version,
+                'Implementation-Vendor': 'Patrik Harag',
+                'Main-Class': 'cz.hartrik.pia.Main',
+        )
+    }
+    doFirst {
+        from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+    }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+}
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean

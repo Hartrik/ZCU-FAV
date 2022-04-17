@@ -1,0 +1,10 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+deploy:
+  provider: heroku
+  app: kiv-pia
+  api_key:
+    secure: $HEROKU_API_KEY
