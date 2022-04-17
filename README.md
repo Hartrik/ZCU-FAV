@@ -42,8 +42,13 @@ Další ho stále mají, a tak je zde pouze odkaz.
 
 ## 2019/20
 
+| Předmět | Semestr | Obsah |
+| --- | --- | --- |
+| [KIV-PSI](KIV-PSI) | LS | [Semestrální práce – POP3 klient](KIV-PSI/SP) |
+
+
 ## 2020/21
 
 | Předmět | Semestr | Obsah |
 | --- | --- | --- |
-| KIV-DS | ZS | [Semestrální práce – sekvencer k řazení příchozích požadavků](KIV-DS/cv-01-sequencer)<br>[Semestrální práce – implementace ZeroMQ služby s integrovaným Chandy-Lamportovým algoritmem](KIV-DS/cv-02-zero) |
+| [KIV-DS](KIV-DS) | ZS | [Semestrální práce – sekvencer k řazení příchozích požadavků](KIV-DS/cv-01-sequencer)<br>[Semestrální práce – implementace ZeroMQ služby s integrovaným Chandy-Lamportovým algoritmem](KIV-DS/cv-02-zero) |
