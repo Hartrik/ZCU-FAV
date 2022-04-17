@@ -1,0 +1,49 @@
+@startuml
+
+== Logging ==
+
+Client -> Server: LIN
+Client <-- Server: LIN (success / failure)
+
+== Getting list of games ==
+
+Client -> Server: GLI
+Client <-- Server: GLI (list of games)
+
+== Creating game ==
+Client -> Server: GNW (setting)
+Client <-- Server: GNW (game ID / error code)
+
+== Joining game ==
+
+Client -> Server: GJO (game ID)
+Client <-- Server: GJO (success / failure)
+
+== Playing game ==
+
+...retrieving game data...
+
+Client <-- Server: GST (game ID)
+
+...user actions\nand other players actions...
+
+Client --> Server: GAC (game ID, piece, x, y)
+Client <-- Server: GAC (game ID, piece, x, y)
+
+...eventually...
+
+Client <-- Server: GWI (game ID)
+
+...exit game...
+
+Client -> Server: GOF
+
+...log out...
+
+Client -> Server: LOF
+
+...close connection...
+
+Client -> Server: BYE
+
+@enduml

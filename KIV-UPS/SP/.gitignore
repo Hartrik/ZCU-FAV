@@ -1,0 +1,29 @@
+/.temp
+/*/.temp
+/*/log.txt
+
+# IDEA
+/*/out
+/*/*.iml
+/*/.idea
+
+# CLion
+/*/build
+/*/cmake-build-debug
+/*/CMakeLists.txt
+
+# Gradle
+/*/build
+/*/.gradle
+/*/gradlew
+/*/gradlew.bat
+/*/gradle
+
+#LaTEX
+/*/*.aux
+/*/*.log
+/*/*.out
+/*/*.toc
+/*/*.bbl
+/*/*.blg
+/*/*.synctex.gz
