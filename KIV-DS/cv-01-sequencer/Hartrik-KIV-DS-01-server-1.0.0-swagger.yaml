@@ -1,0 +1,47 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: KIV-DS 01 server
+  contact:
+    email: patrikharag@gmail.com
+
+paths:
+  /server:
+    post:
+      summary: Accepts financial operation
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: operation
+        description: Financial operation to perform
+        schema:
+          $ref: '#/definitions/operation'
+      responses:
+        201:
+          description: Accepted
+        401:
+          description: Invalid input, object invalid
+
+definitions:
+  operation:
+    type: object
+    required:
+    - value
+      id
+    properties:
+      value:
+        type: integer
+        format: int32
+        example: 2599
+      id:
+        type: integer
+        format: int64
+        example: 12
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /Hartrik/KIV-DS-01-server/1.0.0
+schemes:
+ - https

@@ -1,0 +1,55 @@
+Vagrant.configure("2") do |config|
+
+    config.vm.define "sequencer" do |cfg|
+        cfg.vm.box = "geerlingguy/centos7"
+        cfg.vm.network "private_network", ip: "10.0.3.60"
+        cfg.vm.provision "shell", inline: <<-SHELL
+            yum -q -y install java-1.8.0-openjdk
+            java -version
+            
+            cd /vagrant
+            nohup java -jar multi-server-1.0.0.jar sequencer 8080 http://10.0.3.61:8080 1>log-sequencer.txt 2>&1 &
+            
+        SHELL
+    end
+    
+    config.vm.define "shuffler" do |cfg|
+        cfg.vm.box = "geerlingguy/centos7"
+        cfg.vm.network "private_network", ip: "10.0.3.61"
+        cfg.vm.provision "shell", inline: <<-SHELL
+            yum -q -y install java-1.8.0-openjdk
+            java -version
+            
+            cd /vagrant
+            nohup java -jar multi-server-1.0.0.jar shuffler 8080 http://10.0.3.62:8080 http://10.0.3.63:8080 1>log-shuffler.txt 2>&1 &
+            
+        SHELL
+    end
+    
+    config.vm.define "server1" do |cfg|
+        cfg.vm.box = "geerlingguy/centos7"
+        cfg.vm.network "private_network", ip: "10.0.3.62"
+        cfg.vm.provision "shell", inline: <<-SHELL
+            yum -q -y install java-1.8.0-openjdk
+            java -version
+            
+            cd /vagrant
+            nohup java -jar multi-server-1.0.0.jar server 8080 1>log-server-1.txt 2>&1 &
+            
+        SHELL
+    end
+    
+    config.vm.define "server2" do |cfg|
+        cfg.vm.box = "geerlingguy/centos7"
+        cfg.vm.network "private_network", ip: "10.0.3.63"
+        cfg.vm.provision "shell", inline: <<-SHELL
+            yum -q -y install java-1.8.0-openjdk
+            java -version
+            
+            cd /vagrant
+            nohup java -jar multi-server-1.0.0.jar server 8080 1>log-server-2.txt 2>&1 &
+            
+        SHELL
+    end
+  
+end
