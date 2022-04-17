@@ -44,6 +44,7 @@ Další ho stále mají, a tak je zde pouze odkaz.
 
 | Předmět | Semestr | Obsah |
 | --- | --- | --- |
+| [KIV-VSS](KIV-VSS) | ZS | Cvičení<br>[Semestrální práce – šíření vody v krajině](KIV-VSS/kiv-vss-sp) |
 | [KIV-PSI](KIV-PSI) | LS | [Semestrální práce – POP3 klient](KIV-PSI/SP) |
 
 

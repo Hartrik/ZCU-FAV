@@ -1,0 +1,17 @@
+% formátování odkazů
+
+\ProvidesPackage{pkg-url}
+
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usepackage{breakurl}
+\usepackage[breaklinks,pdftex]{hyperref}
+
+\hypersetup{
+	colorlinks=true,
+	unicode=true,
+	linkcolor=black,
+	citecolor=black,
+	urlcolor=black,
+	bookmarksopen=true
+}

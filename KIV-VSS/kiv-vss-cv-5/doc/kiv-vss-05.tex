@@ -1,0 +1,72 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[czech]{babel}
+\usepackage[IL2]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}  % lepší kvalita PDF
+
+\usepackage[a4paper,top=3cm,bottom=3cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{verbatim}
+\usepackage{amsmath}
+
+\usepackage{pkg-custom-commands}
+\usepackage{pkg-url}
+
+% údaje na titulní straně
+\title{Cvičení 5}
+\def \thesubtitle {KIV/VSS}
+\author{Patrik Harag}
+\def \theauthoremail {harag@students.zcu.cz}
+\def \theauthorid {A18N0084P, nar. 10. května}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{figure}
+		\includegraphics[height=50mm]{img-fav-logo}
+	\end{figure}
+	
+	\centering
+	{\large \hspace{1mm} \par} % tady musí být nějaký text jinak nefunguje vertikální odsazení
+	\vspace{15ex}
+	
+	{\huge\bfseries \thetitle \par}
+	\vspace{2ex}
+	{\scshape\Large \thesubtitle \par}
+	\vspace{15ex}
+	{\Large\itshape \theauthor \par}
+	\vspace{2ex}
+	{\texttt{\theauthoremail} \par}
+	\vspace{1ex}
+	{\texttt{\theauthorid} \par}
+	
+	\vfill
+
+	{\today\par}
+\end{titlepage}
+
+\section*{Zadání}
+
+\paragraph{7.}
+Neobnovovaný výpočetní systém se skládá:
+\begin{itemize}
+	\item ze dvou procesorů ($\lambda_{1} = 10^{-4}$ /h),
+	\item ze dvou nezávislých paměťových modulů ($\lambda_{2}  = 2\times10^{-4}$),
+	\item z jednoho modulu pro I/O interface ($\lambda_{3} = 5\times10^{-5}$),
+	\item ze spoj. subsystému (sběrnice, $\lambda_{4} = 5\times10^{-5}$).
+\end{itemize}
+Napájení jednotlivých modulů je nezávislé. Systém je schopný provozu, je-li alespoň jeden modul každého typu provozuschopný.
+
+Nakreslete blokově statický spolehlivostní model systému.
+Rozhodněte, zda je výpočetní systém použitelný v aplikaci, vyžadující 90-ti procentní pravděpodobnost provozuschopného stavu po dobu prvních 100 hodin provozu. Nejprve odvoďte příslušný vzorec a do něj pak dosaďte.
+
+\includepdf[pages={1}]{priklad.pdf}
+
+\end{document}

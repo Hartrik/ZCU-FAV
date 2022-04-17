@@ -1,0 +1,85 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[czech]{babel}
+\usepackage[IL2]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}  % lepší kvalita PDF
+
+\usepackage[a4paper,top=3cm,bottom=3cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{verbatim}
+\usepackage{amsmath}
+
+\usepackage{pkg-custom-commands}
+\usepackage{pkg-url}
+
+% údaje na titulní straně
+\title{Cvičení 1}
+\def \thesubtitle {KIV/VSS}
+\author{Patrik Harag}
+\def \theauthoremail {harag@students.zcu.cz}
+\def \theauthorid {A18N0084P, nar. 10. května}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{figure}
+		\includegraphics[height=50mm]{img-fav-logo}
+	\end{figure}
+	
+	\centering
+	{\large \hspace{1mm} \par} % tady musí být nějaký text jinak nefunguje vertikální odsazení
+	\vspace{15ex}
+	
+	{\huge\bfseries \thetitle \par}
+	\vspace{2ex}
+	{\scshape\Large \thesubtitle \par}
+	\vspace{15ex}
+	{\Large\itshape \theauthor \par}
+	\vspace{2ex}
+	{\texttt{\theauthoremail} \par}
+	\vspace{1ex}
+	{\texttt{\theauthorid} \par}
+	
+	\vfill
+
+	{\today\par}
+\end{titlepage}
+
+\section{Zadání}
+
+\paragraph{5. Lichoběžníkové rozdělení}
+\begin{itemize}
+	\item $f(x) = 0$ pro $x < a$
+	\item $f(x)$ lin. roste pro $b > x > a$
+	\item $f(x)$ je konst pro $c > x > b$
+	\item $f(x) = 0$ pro $x > c$
+\end{itemize}
+
+\section{Řešení}
+Byl vytvořen program v jazyce Groovy generující zadané rozdělení.
+
+\paragraph{Generování čísel}
+Pro mapování náhodných čísel z~unoformního generátoru\\ (\code{java.util.Random}) využívá vylučovací metodu.
+
+\paragraph{Statistiky}
+Program zjištuje střední hodnotu a rozptyl vygenerovaných čísel. V~compile time je možné zvolit mezi přesným výpočtem (vyžaduje uložení všech čísel) a~přibližným výpočtem (při výpočtu rozptylu se využije aktuální střední hodnotu z~dosud vygenerovaných čísel). Jako výchozí je nastaven přibližný výpočet.
+
+\paragraph{Teoretické statistiky}
+Pro výpočet teoretické střední hodnoty byl použit známý vzorec\footnote{\url{https://en.wikipedia.org/wiki/Trapezoidal\_distribution}} obdobného lichoběžníkového rozdělení, ve kterém $d = c + e$, kde $e$ je kladné číslo blízké nule (aby nedošlo k dělení nulou).
+\begin{equation}
+	\frac{1}{3(d+c-b-a)}\left(\frac{d^3-c^3}{d-c}-\frac{b^3-a^3}{b-a}\right)
+\end{equation}
+
+\paragraph{Kompilace a spuštění}
+Program se zkompiluje spuštěním \code{build.bat} (je nutné mít nainstalovaný gradle) a spustí spuštěním \code{run.bat} (vyžaduje Javu 8).
+Program lze také spustit s parametry \lt\emph{počet vzorků}, \emph{a}, \emph{b}, \emph{c}\gt \space v uvedeném pořadí.
+Přípustné je pouze spuštění bez parametrů nebo se všemi parametry.
+
+\end{document}

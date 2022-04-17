@@ -1,0 +1,21 @@
+
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
+
+# IDEA
+.idea/
+*.iml
+out/
+
+#LaTEX
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
