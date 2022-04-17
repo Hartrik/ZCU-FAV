@@ -44,6 +44,7 @@ Další ho stále mají, a tak je zde pouze odkaz.
 
 | Předmět | Semestr | Obsah |
 | --- | --- | --- |
+| [KIV-PPR](KIV-PPR) | ZS | [Semestrální práce – efektivní hledání minima funkce](KIV-PPR/SP) (C++) |
 | [KIV-VSS](KIV-VSS) | ZS | Cvičení (papír, Java, Groovy)<br>[Semestrální práce – šíření vody v krajině](KIV-VSS/kiv-vss-sp) (Java) |
 | [KIV-PSI](KIV-PSI) | LS | [Semestrální práce – POP3 klient](KIV-PSI/SP) (Java) |
 

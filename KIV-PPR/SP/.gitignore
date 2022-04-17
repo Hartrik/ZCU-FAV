@@ -1,0 +1,15 @@
+
+compiled/
+
+*.vcxproj.user
+.vs/
+x64/
+
+#LaTEX
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
